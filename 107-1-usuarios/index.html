@@ -1,0 +1,1891 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del Tema 3 de Implantación de Sistemas Operativos">
+      
+      
+      
+      
+        <link rel="prev" href="../103-7-grep-sed/">
+      
+      
+        <link rel="next" href="../107-1-ficheros-cuentas/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3.11 Gestión de usuarios y grupos - ISO · Tema 3 · Configuración básica de Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#311-gestion-de-usuarios-y-grupos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-header__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 3 · Configuración básica de Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.11 Gestión de usuarios y grupos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-nav__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 3 · Configuración básica de Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 1 · Línea de comandos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 1 · Línea de comandos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-1-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1 Variables y caracteres especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-2-filtros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Filtros de texto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3 Gestión básica de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-find-tar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4 Búsqueda, archivado y copia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-redirecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.5 Redirecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-tuberias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.6 Tuberías, tee y xargs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-5-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-6-prioridades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.8 Prioridad de procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-regex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Expresiones regulares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-grep-sed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.10 grep y sed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Gestión de usuarios y grupos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Gestión de usuarios y grupos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos básicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos básicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quien-soy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Quién soy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-usuarios-useradd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear usuarios: useradd
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear usuarios: useradd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valores-por-defecto-y-etcskel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valores por defecto y /etc/skel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modificar-usuarios-usermod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificar usuarios: usermod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-usuarios-userdel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminar usuarios: userdel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestionar-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestionar grupos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestionar grupos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miembros-de-un-grupo-gpasswd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miembros de un grupo: gpasswd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contrasenas-y-caducidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contraseñas y caducidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contraseñas y caducidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        passwd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chage-politica-de-caducidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        chage: política de caducidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cambiar-de-usuario-su-y-sudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cambiar de usuario: su y sudo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de comandos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-ficheros-cuentas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Ficheros de cuentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.13 Permisos y propietarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos-especiales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.14 Permisos especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-6-enlaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.15 Enlaces duros y simbólicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-7-fhs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.16 Jerarquía de directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../practicas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practicas/p1-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1 · Archivos y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos básicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos básicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quien-soy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Quién soy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-usuarios-useradd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear usuarios: useradd
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear usuarios: useradd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valores-por-defecto-y-etcskel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valores por defecto y /etc/skel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modificar-usuarios-usermod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificar usuarios: usermod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eliminar-usuarios-userdel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminar usuarios: userdel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestionar-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestionar grupos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestionar grupos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#miembros-de-un-grupo-gpasswd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miembros de un grupo: gpasswd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contrasenas-y-caducidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contraseñas y caducidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contraseñas y caducidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        passwd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chage-politica-de-caducidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        chage: política de caducidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cambiar-de-usuario-su-y-sudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cambiar de usuario: su y sudo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de comandos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="311-gestion-de-usuarios-y-grupos">3.11 Gestión de usuarios y grupos<a class="headerlink" href="#311-gestion-de-usuarios-y-grupos" title="Permanent link">&para;</a></h1>
+<p>Linux es un sistema <strong>multiusuario</strong>: varias personas (y muchos servicios) comparten la misma máquina, cada uno con su identidad, sus ficheros y sus permisos. En este apartado veremos cómo crear, modificar y eliminar cuentas de usuario y grupos desde la terminal.</p>
+<div class="admonition warning">
+<p class="admonition-title">Necesitas privilegios</p>
+<p>Casi todos los comandos de este apartado modifican ficheros del sistema, así que hay que ejecutarlos como <code>root</code> o con <code>sudo</code>. Practica en una máquina virtual.</p>
+</div>
+<h2 id="conceptos-basicos">Conceptos básicos<a class="headerlink" href="#conceptos-basicos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Usuario</strong></td>
+<td>Identidad con un nombre (<code>alumno</code>) y un número, el <strong>UID</strong></td>
+</tr>
+<tr>
+<td><strong>Grupo</strong></td>
+<td>Conjunto de usuarios, con un nombre y un número, el <strong>GID</strong></td>
+</tr>
+<tr>
+<td><strong>Grupo primario</strong></td>
+<td>El grupo principal del usuario; es el que se asigna a los ficheros que crea. Solo hay uno</td>
+</tr>
+<tr>
+<td><strong>Grupos secundarios</strong></td>
+<td>Otros grupos a los que pertenece, para obtener permisos adicionales</td>
+</tr>
+<tr>
+<td><strong><code>root</code></strong></td>
+<td>El superusuario. Siempre tiene UID 0</td>
+</tr>
+</tbody>
+</table>
+<p>Rangos de UID habituales (se definen en <code>/etc/login.defs</code>):</p>
+<table>
+<thead>
+<tr>
+<th>UID</th>
+<th>Tipo de cuenta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>root</code></td>
+</tr>
+<tr>
+<td><code>1</code>–<code>999</code></td>
+<td>Cuentas del sistema (servicios como <code>www-data</code>, <code>sshd</code>...)</td>
+</tr>
+<tr>
+<td><code>1000</code> en adelante</td>
+<td>Usuarios normales</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quien-soy">¿Quién soy?<a class="headerlink" href="#quien-soy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>whoami<span class="w">                 </span><span class="c1"># nombre de usuario</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>alumno
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>$<span class="w"> </span>id<span class="w">                     </span><span class="c1"># UID, GID y todos los grupos</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">uid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>alumno<span class="o">)</span><span class="w"> </span><span class="nv">gid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>alumno<span class="o">)</span><span class="w"> </span><span class="nv">grupos</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>alumno<span class="o">)</span>,27<span class="o">(</span>sudo<span class="o">)</span>,100<span class="o">(</span>users<span class="o">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>$<span class="w"> </span>id<span class="w"> </span>ana<span class="w">                 </span><span class="c1"># los de otro usuario</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>$<span class="w"> </span>groups<span class="w">                 </span><span class="c1"># solo los nombres de los grupos</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>$<span class="w"> </span>who<span class="w">                    </span><span class="c1"># quién está conectado</span>
+</code></pre></div>
+<h2 id="crear-usuarios-useradd">Crear usuarios: <code>useradd</code><a class="headerlink" href="#crear-usuarios-useradd" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"Ana García"</span><span class="w"> </span>ana
+</code></pre></div>
+<p>Opciones más importantes:</p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-m</code></td>
+<td>Crea el directorio personal (copiando el contenido de <code>/etc/skel</code>)</td>
+</tr>
+<tr>
+<td><code>-d ruta</code></td>
+<td>Usa otra ruta como directorio personal</td>
+</tr>
+<tr>
+<td><code>-s shell</code></td>
+<td>Shell de inicio de sesión</td>
+</tr>
+<tr>
+<td><code>-c "texto"</code></td>
+<td>Comentario (normalmente el nombre completo)</td>
+</tr>
+<tr>
+<td><code>-u UID</code></td>
+<td>UID concreto</td>
+</tr>
+<tr>
+<td><code>-g grupo</code></td>
+<td>Grupo primario</td>
+</tr>
+<tr>
+<td><code>-G g1,g2</code></td>
+<td>Grupos secundarios</td>
+</tr>
+<tr>
+<td><code>-e AAAA-MM-DD</code></td>
+<td>Fecha de caducidad de la cuenta</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Crea una cuenta del sistema</td>
+</tr>
+<tr>
+<td><code>-D</code></td>
+<td>Muestra (o cambia) los valores por defecto</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Grupo privado de usuario</p>
+<p>En la mayoría de distribuciones, al crear el usuario <code>ana</code> se crea también el grupo <code>ana</code>, que será su grupo primario. Lo controla la opción <code>USERGROUPS_ENAB</code> de <code>/etc/login.defs</code>.</p>
+</div>
+<p>Después de crearlo hay que <strong>asignarle una contraseña</strong>; mientras no la tenga, no podrá iniciar sesión:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>ana
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title"><code>adduser</code> en Debian y Ubuntu</p>
+<p>Debian y Ubuntu incluyen <code>adduser</code>, un programa más amigable que pregunta los datos (contraseña, nombre...) y crea el directorio personal automáticamente: <code>sudo adduser ana</code>. En el examen LPIC y en otras distribuciones el comando estándar es <code>useradd</code>.</p>
+</div>
+<h3 id="valores-por-defecto-y-etcskel">Valores por defecto y <code>/etc/skel</code><a class="headerlink" href="#valores-por-defecto-y-etcskel" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>useradd<span class="w"> </span>-D<span class="w">                 </span><span class="c1"># valores por defecto de useradd</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/etc/skel<span class="w">           </span><span class="c1"># plantilla del directorio personal</span>
+</code></pre></div>
+<p>Todo lo que pongas en <code>/etc/skel</code> (un <code>.bashrc</code> personalizado, una carpeta <code>Documentos</code>...) se copiará al directorio personal de cada usuario <strong>nuevo</strong>.</p>
+<h2 id="modificar-usuarios-usermod">Modificar usuarios: <code>usermod</code><a class="headerlink" href="#modificar-usuarios-usermod" title="Permanent link">&para;</a></h2>
+<p>Usa casi las mismas opciones que <code>useradd</code>, más algunas propias:</p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code>, <code>-s</code>, <code>-u</code>, <code>-g</code>, <code>-e</code></td>
+<td>Igual que en <code>useradd</code></td>
+</tr>
+<tr>
+<td><code>-G g1,g2</code></td>
+<td><strong>Sustituye</strong> la lista de grupos secundarios</td>
+</tr>
+<tr>
+<td><code>-a -G grupo</code></td>
+<td><strong>Añade</strong> a un grupo secundario, conservando los demás</td>
+</tr>
+<tr>
+<td><code>-l nuevo</code></td>
+<td>Cambia el nombre de usuario</td>
+</tr>
+<tr>
+<td><code>-d ruta -m</code></td>
+<td>Cambia el directorio personal y mueve su contenido</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>Bloquea la cuenta</td>
+</tr>
+<tr>
+<td><code>-U</code></td>
+<td>Desbloquea la cuenta</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>sudo<span class="w"> </span>ana<span class="w">               </span><span class="c1"># ana puede usar sudo</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-s<span class="w"> </span>/bin/zsh<span class="w"> </span>ana
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-c<span class="w"> </span><span class="s2">"Ana García López"</span><span class="w"> </span>ana
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-L<span class="w"> </span>ana<span class="w">                     </span><span class="c1"># bloquear</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-U<span class="w"> </span>ana<span class="w">                     </span><span class="c1"># desbloquear</span>
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title"><code>-G</code> sin <code>-a</code></p>
+<p><code>usermod -G docker ana</code> deja a <code>ana</code> <strong>solo</strong> en el grupo <code>docker</code>, quitándola de todos los demás grupos secundarios (incluido <code>sudo</code>). Para añadir, usa siempre <code>-aG</code>.</p>
+</div>
+<p>Los cambios de grupo no se aplican a las sesiones abiertas: el usuario debe cerrar sesión y volver a entrar (o usar <code>newgrp grupo</code> en esa terminal).</p>
+<h2 id="eliminar-usuarios-userdel">Eliminar usuarios: <code>userdel</code><a class="headerlink" href="#eliminar-usuarios-userdel" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>userdel<span class="w"> </span>ana<span class="w">          </span><span class="c1"># borra la cuenta, pero deja su directorio personal</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>userdel<span class="w"> </span>-r<span class="w"> </span>ana<span class="w">       </span><span class="c1"># borra también su directorio personal y su buzón</span>
+</code></pre></div>
+<p>Los ficheros que el usuario tuviera <strong>fuera</strong> de su directorio personal no se borran: quedan con su antiguo UID como propietario. Se pueden buscar con <code>sudo find / -nouser</code>.</p>
+<h2 id="gestionar-grupos">Gestionar grupos<a class="headerlink" href="#gestionar-grupos" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupadd<span class="w"> </span>profesores<span class="w">               </span><span class="c1"># crear</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupadd<span class="w"> </span>-g<span class="w"> </span><span class="m">2000</span><span class="w"> </span>alumnos<span class="w">          </span><span class="c1"># con un GID concreto</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupmod<span class="w"> </span>-n<span class="w"> </span>docentes<span class="w"> </span>profesores<span class="w">   </span><span class="c1"># renombrar</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupmod<span class="w"> </span>-g<span class="w"> </span><span class="m">2001</span><span class="w"> </span>docentes<span class="w">         </span><span class="c1"># cambiar el GID</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupdel<span class="w"> </span>docentes<span class="w">                 </span><span class="c1"># eliminar</span>
+</code></pre></div>
+<p>No se puede borrar un grupo que sea el <strong>grupo primario</strong> de algún usuario.</p>
+<h3 id="miembros-de-un-grupo-gpasswd">Miembros de un grupo: <code>gpasswd</code><a class="headerlink" href="#miembros-de-un-grupo-gpasswd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>gpasswd<span class="w"> </span>-a<span class="w"> </span>ana<span class="w"> </span>alumnos<span class="w">        </span><span class="c1"># añadir a ana al grupo</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>gpasswd<span class="w"> </span>-d<span class="w"> </span>ana<span class="w"> </span>alumnos<span class="w">        </span><span class="c1"># quitarla</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>gpasswd<span class="w"> </span>-M<span class="w"> </span>ana,luis<span class="w"> </span>alumnos<span class="w">   </span><span class="c1"># fijar la lista completa de miembros</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>gpasswd<span class="w"> </span>-A<span class="w"> </span>luis<span class="w"> </span>alumnos<span class="w">       </span><span class="c1"># luis pasa a administrar el grupo</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span>alumnos<span class="w">               </span><span class="c1"># ver los miembros</span>
+</code></pre></div>
+<p>Un <strong>administrador de grupo</strong> puede añadir y quitar miembros sin ser <code>root</code>.</p>
+<h2 id="contrasenas-y-caducidad">Contraseñas y caducidad<a class="headerlink" href="#contrasenas-y-caducidad" title="Permanent link">&para;</a></h2>
+<h3 id="passwd"><code>passwd</code><a class="headerlink" href="#passwd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>passwd<span class="w">                     </span><span class="c1"># cambiar mi propia contraseña</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>ana<span class="w">            </span><span class="c1"># cambiar la de otro (solo root)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-l<span class="w"> </span>ana<span class="w">         </span><span class="c1"># bloquear la contraseña</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-u<span class="w"> </span>ana<span class="w">         </span><span class="c1"># desbloquearla</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-S<span class="w"> </span>ana<span class="w">         </span><span class="c1"># estado de la cuenta</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-e<span class="w"> </span>ana<span class="w">         </span><span class="c1"># obligar a cambiarla en el próximo inicio de sesión</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-d<span class="w"> </span>ana<span class="w">         </span><span class="c1"># quitar la contraseña (¡peligroso!)</span>
+</code></pre></div>
+<h3 id="chage-politica-de-caducidad"><code>chage</code>: política de caducidad<a class="headerlink" href="#chage-politica-de-caducidad" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-l<span class="w"> </span>ana<span class="w">                 </span><span class="c1"># ver la política actual</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-M<span class="w"> </span><span class="m">90</span><span class="w"> </span>ana<span class="w">              </span><span class="c1"># caduca a los 90 días</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-m<span class="w"> </span><span class="m">1</span><span class="w"> </span>ana<span class="w">               </span><span class="c1"># mínimo 1 día entre cambios</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-W<span class="w"> </span><span class="m">7</span><span class="w"> </span>ana<span class="w">               </span><span class="c1"># avisar 7 días antes</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-I<span class="w"> </span><span class="m">5</span><span class="w"> </span>ana<span class="w">               </span><span class="c1"># 5 días de margen tras caducar; luego se inhabilita</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-E<span class="w"> </span><span class="m">2027</span>-06-30<span class="w"> </span>ana<span class="w">      </span><span class="c1"># la cuenta expira en esa fecha</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-d<span class="w"> </span><span class="m">0</span><span class="w"> </span>ana<span class="w">               </span><span class="c1"># forzar el cambio en el próximo inicio de sesión</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>ana<span class="w">                    </span><span class="c1"># modo interactivo</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Contraseña frente a cuenta</p>
+<p>Caducar la <strong>contraseña</strong> (<code>-M</code>) obliga a cambiarla. Expirar la <strong>cuenta</strong> (<code>-E</code>) impide entrar del todo, aunque la contraseña sea correcta. Es útil para alumnos o personal temporal.</p>
+</div>
+<h2 id="cambiar-de-usuario-su-y-sudo">Cambiar de usuario: <code>su</code> y <code>sudo</code><a class="headerlink" href="#cambiar-de-usuario-su-y-sudo" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>ana<span class="w">             </span><span class="c1"># abrir una sesión como ana (pide la contraseña de ana)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>$<span class="w"> </span>su<span class="w"> </span>-<span class="w">                 </span><span class="c1"># convertirse en root (pide la contraseña de root)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>comando<span class="w">         </span><span class="c1"># ejecutar un comando como root (pide TU contraseña)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>ana<span class="w"> </span>comando<span class="w">  </span><span class="c1"># ejecutar un comando como ana</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>-i<span class="w">              </span><span class="c1"># shell de root</span>
+</code></pre></div>
+<p>El guion de <code>su -</code> hace que se cargue el entorno completo del otro usuario (su <code>PATH</code>, su directorio personal...). Quién puede usar <code>sudo</code> se define en <code>/etc/sudoers</code> (se edita siempre con <code>visudo</code>) y, en Debian y Ubuntu, perteneciendo al grupo <code>sudo</code> (<code>wheel</code> en Red Hat y derivadas).</p>
+<h2 id="resumen-de-comandos">Resumen de comandos<a class="headerlink" href="#resumen-de-comandos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code>, <code>whoami</code>, <code>groups</code>, <code>who</code></td>
+<td>Ver identidad y grupos</td>
+</tr>
+<tr>
+<td><code>useradd</code> / <code>adduser</code></td>
+<td>Crear usuarios</td>
+</tr>
+<tr>
+<td><code>usermod</code></td>
+<td>Modificar usuarios (<code>-aG</code> para añadir a un grupo)</td>
+</tr>
+<tr>
+<td><code>userdel -r</code></td>
+<td>Eliminar usuarios y su directorio personal</td>
+</tr>
+<tr>
+<td><code>groupadd</code>, <code>groupmod</code>, <code>groupdel</code></td>
+<td>Crear, modificar y eliminar grupos</td>
+</tr>
+<tr>
+<td><code>gpasswd</code></td>
+<td>Gestionar los miembros y administradores de un grupo</td>
+</tr>
+<tr>
+<td><code>passwd</code></td>
+<td>Cambiar, bloquear o forzar el cambio de contraseña</td>
+</tr>
+<tr>
+<td><code>chage</code></td>
+<td>Política de caducidad de contraseñas y cuentas</td>
+</tr>
+<tr>
+<td><code>su</code>, <code>sudo</code></td>
+<td>Actuar como otro usuario</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> Muestra tu UID, tu grupo primario y todos tus grupos secundarios. ¿Puedes usar <code>sudo</code>? ¿Cómo lo sabes?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>id
+</code></pre></div>
+Si aparece el grupo <code>sudo</code> (o <code>wheel</code>), puedes usar <code>sudo</code>.</p>
+</details>
+<p><strong>2.</strong> Crea los grupos <code>asir1</code> y <code>asir2</code>, este último con GID 3002.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupadd<span class="w"> </span>asir1
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupadd<span class="w"> </span>-g<span class="w"> </span><span class="m">3002</span><span class="w"> </span>asir2
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span>asir1<span class="w"> </span>asir2
+</code></pre></div>
+</details>
+<p><strong>3.</strong> Crea el usuario <code>lucia</code>, con directorio personal, shell Bash, nombre completo "Lucía Martí" y <code>asir1</code> como grupo secundario. Asígnale una contraseña y comprueba que puedes entrar con <code>su - lucia</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"Lucía Martí"</span><span class="w"> </span>-G<span class="w"> </span>asir1<span class="w"> </span>lucia
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>lucia
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>$<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>lucia
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>$<span class="w"> </span>id
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>$<span class="w"> </span><span class="nb">exit</span>
+</code></pre></div>
+</details>
+<p><strong>4.</strong> Antes de crear más usuarios, haz que todos los nuevos tengan en su directorio personal una carpeta <code>practicas</code> y un fichero <code>LEEME.txt</code> con el texto <code>Bienvenido al aula</code>. Crea el usuario <code>pablo</code> y compruébalo.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>mkdir<span class="w"> </span>/etc/skel/practicas
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Bienvenido al aula"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/skel/LEEME.txt
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>pablo
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/home/pablo
+</code></pre></div>
+<code>lucia</code> no los tiene: <code>/etc/skel</code> solo se copia al crear el usuario.</p>
+</details>
+<p><strong>5.</strong> Añade a <code>lucia</code> también al grupo <code>asir2</code> <strong>sin</strong> quitarla de <code>asir1</code>. Comprueba sus grupos.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>asir2<span class="w"> </span>lucia
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>$<span class="w"> </span>id<span class="w"> </span>lucia
+</code></pre></div>
+</details>
+<p><strong>6.</strong> Ahora ejecuta <code>sudo usermod -G asir2 lucia</code> (sin <code>-a</code>) y vuelve a mirar sus grupos. ¿Qué ha pasado? Déjala otra vez en los dos grupos.</p>
+<details class="success">
+<summary>Solución</summary>
+<p>Ha perdido <code>asir1</code>: <code>-G</code> sin <code>-a</code> sustituye la lista completa de grupos secundarios.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-G<span class="w"> </span>asir1,asir2<span class="w"> </span>lucia
+</code></pre></div></p>
+</details>
+<p><strong>7.</strong> Configura la cuenta de <code>pablo</code> para que la contraseña caduque cada 60 días, avise con 5 días de antelación, obligue a cambiarla en el primer inicio de sesión y la cuenta expire al final del curso (30 de junio de 2027). Comprueba la configuración.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-M<span class="w"> </span><span class="m">60</span><span class="w"> </span>-W<span class="w"> </span><span class="m">5</span><span class="w"> </span>-d<span class="w"> </span><span class="m">0</span><span class="w"> </span>-E<span class="w"> </span><span class="m">2027</span>-06-30<span class="w"> </span>pablo
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-l<span class="w"> </span>pablo
+</code></pre></div>
+</details>
+<p><strong>8.</strong> Bloquea la cuenta de <code>pablo</code>, comprueba que no puede entrar con <code>su - pablo</code> y desbloquéala.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-L<span class="w"> </span>pablo<span class="w">       </span><span class="c1"># o: sudo passwd -l pablo</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-S<span class="w"> </span>pablo<span class="w">        </span><span class="c1"># aparece L (locked)</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>$<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>pablo<span class="w">                  </span><span class="c1"># falla la autenticación</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>usermod<span class="w"> </span>-U<span class="w"> </span>pablo
+</code></pre></div>
+</details>
+<p><strong>9.</strong> Haz que <code>lucia</code> sea administradora del grupo <code>asir1</code>. Entra como <code>lucia</code> y añade a <code>pablo</code> a ese grupo sin usar <code>sudo</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>gpasswd<span class="w"> </span>-A<span class="w"> </span>lucia<span class="w"> </span>asir1
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>$<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>lucia
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>$<span class="w"> </span>gpasswd<span class="w"> </span>-a<span class="w"> </span>pablo<span class="w"> </span>asir1
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>$<span class="w"> </span><span class="nb">exit</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span>asir1
+</code></pre></div>
+</details>
+<p><strong>10.</strong> Elimina el usuario <code>pablo</code> con su directorio personal y el grupo <code>asir2</code>. ¿Por qué no puedes eliminar el grupo <code>lucia</code>?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>userdel<span class="w"> </span>-r<span class="w"> </span>pablo
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupdel<span class="w"> </span>asir2
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>groupdel<span class="w"> </span>lucia
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>groupdel:<span class="w"> </span>cannot<span class="w"> </span>remove<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>group<span class="w"> </span>of<span class="w"> </span>user<span class="w"> </span><span class="s1">'lucia'</span>
+</code></pre></div>
+El grupo <code>lucia</code> es el grupo primario de la usuaria <code>lucia</code>.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../103-7-grep-sed/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 3.10 grep y sed">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                3.10 grep y sed
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../107-1-ficheros-cuentas/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 3.12 Ficheros de cuentas">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                3.12 Ficheros de cuentas
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.footer", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

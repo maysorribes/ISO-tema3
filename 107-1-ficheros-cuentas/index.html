@@ -1,0 +1,1787 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del Tema 3 de Implantación de Sistemas Operativos">
+      
+      
+      
+      
+        <link rel="prev" href="../107-1-usuarios/">
+      
+      
+        <link rel="next" href="../104-5-permisos/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3.12 Ficheros de cuentas - ISO · Tema 3 · Configuración básica de Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#312-ficheros-de-cuentas-passwd-shadow-group-y-gshadow" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-header__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 3 · Configuración básica de Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.12 Ficheros de cuentas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-nav__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 3 · Configuración básica de Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 1 · Línea de comandos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 1 · Línea de comandos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-1-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1 Variables y caracteres especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-2-filtros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Filtros de texto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3 Gestión básica de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-find-tar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4 Búsqueda, archivado y copia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-redirecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.5 Redirecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-tuberias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.6 Tuberías, tee y xargs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-5-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-6-prioridades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.8 Prioridad de procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-regex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Expresiones regulares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-grep-sed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.10 grep y sed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Gestión de usuarios y grupos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Ficheros de cuentas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Ficheros de cuentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#etcpasswd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/passwd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcshadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/shadow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcgroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcgshadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/gshadow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etclogindefs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/login.defs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consultar-las-cuentas-getent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultar las cuentas: getent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtrar-las-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtrar las bases de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.13 Permisos y propietarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos-especiales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.14 Permisos especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-6-enlaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.15 Enlaces duros y simbólicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-7-fhs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.16 Jerarquía de directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../practicas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practicas/p1-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1 · Archivos y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#etcpasswd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/passwd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcshadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/shadow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcgroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etcgshadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/gshadow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etclogindefs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/login.defs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consultar-las-cuentas-getent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultar las cuentas: getent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtrar-las-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtrar las bases de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="312-ficheros-de-cuentas-passwd-shadow-group-y-gshadow">3.12 Ficheros de cuentas: <code>passwd</code>, <code>shadow</code>, <code>group</code> y <code>gshadow</code><a class="headerlink" href="#312-ficheros-de-cuentas-passwd-shadow-group-y-gshadow" title="Permanent link">&para;</a></h1>
+<p>Los comandos del apartado anterior no hacen magia: todo lo que crean o modifican queda guardado en <strong>cuatro ficheros de texto</strong> dentro de <code>/etc</code>. Entenderlos permite consultar y diagnosticar cuentas con las herramientas de filtrado que ya conocemos.</p>
+<table>
+<thead>
+<tr>
+<th>Fichero</th>
+<th>Contenido</th>
+<th>Permisos habituales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/passwd</code></td>
+<td>Usuarios</td>
+<td><code>-rw-r--r--</code> root root (lo puede leer cualquiera)</td>
+</tr>
+<tr>
+<td><code>/etc/shadow</code></td>
+<td>Contraseñas cifradas de los usuarios y su caducidad</td>
+<td><code>-rw-r-----</code> root shadow (solo root)</td>
+</tr>
+<tr>
+<td><code>/etc/group</code></td>
+<td>Grupos y sus miembros</td>
+<td><code>-rw-r--r--</code> root root</td>
+</tr>
+<tr>
+<td><code>/etc/gshadow</code></td>
+<td>Contraseñas y administradores de los grupos</td>
+<td><code>-rw-r-----</code> root shadow</td>
+</tr>
+</tbody>
+</table>
+<p>Todos tienen el mismo formato: <strong>una línea por cuenta</strong> y <strong>campos separados por <code>:</code></strong>.</p>
+<div class="admonition danger">
+<p class="admonition-title">No los edites a mano</p>
+<p>Usa los comandos (<code>useradd</code>, <code>usermod</code>, <code>passwd</code>...). Si alguna vez necesitas editarlos directamente, hazlo con <code>vipw</code> (para <code>passwd</code> y <code>shadow</code>) y <code>vigr</code> (para <code>group</code> y <code>gshadow</code>), que bloquean el fichero mientras lo editas. Un error de sintaxis puede dejar a todos los usuarios sin poder entrar.</p>
+</div>
+<h2 id="etcpasswd"><code>/etc/passwd</code><a class="headerlink" href="#etcpasswd" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lucia:x:1001:1001:Lucía Martí:/home/lucia:/bin/bash
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>lucia</code></td>
+<td>Nombre de usuario</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>x</code></td>
+<td>Contraseña: la <code>x</code> indica que está en <code>/etc/shadow</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>1001</code></td>
+<td>UID</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>1001</code></td>
+<td>GID del <strong>grupo primario</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>Lucía Martí</code></td>
+<td>Comentario o GECOS (nombre completo, teléfono...)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>/home/lucia</code></td>
+<td>Directorio personal</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>/bin/bash</code></td>
+<td>Shell de inicio</td>
+</tr>
+</tbody>
+</table>
+<p>Las cuentas de servicio suelen tener como shell <code>/usr/sbin/nologin</code> o <code>/bin/false</code>, que impide iniciar una sesión interactiva con ellas.</p>
+<div class="admonition note">
+<p class="admonition-title">¿Por qué una <code>x</code>?</p>
+<p>Antiguamente la contraseña cifrada estaba en el campo 2 de <code>/etc/passwd</code>. Como ese fichero debe poder leerlo cualquiera (los programas lo consultan para convertir UID en nombres), las contraseñas se trasladaron a <code>/etc/shadow</code>, que solo puede leer <code>root</code>.</p>
+</div>
+<h2 id="etcshadow"><code>/etc/shadow</code><a class="headerlink" href="#etcshadow" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lucia:$y$j9T$Fq1...Ld0:20385:1:60:5:7:20999:
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>lucia</code></td>
+<td>Nombre de usuario</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>$y$j9T$...</code></td>
+<td>Contraseña cifrada (<em>hash</em>)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>20385</code></td>
+<td>Último cambio de contraseña, en <strong>días desde el 1/1/1970</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>1</code></td>
+<td>Días mínimos entre cambios</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>60</code></td>
+<td>Días máximos de validez</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>5</code></td>
+<td>Días de aviso antes de caducar</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>7</code></td>
+<td>Días de inactividad permitidos tras caducar</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>20999</code></td>
+<td>Fecha de expiración de la cuenta (días desde 1970)</td>
+</tr>
+<tr>
+<td>9</td>
+<td></td>
+<td>Reservado</td>
+</tr>
+</tbody>
+</table>
+<p>Son los mismos valores que vimos con <code>chage -l</code>, que los presenta de forma legible.</p>
+<p>El campo 2 merece atención:</p>
+<table>
+<thead>
+<tr>
+<th>Contenido</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$id$sal$hash</code></td>
+<td>Contraseña cifrada. El <code>id</code> indica el algoritmo: <code>$y$</code> yescrypt, <code>$6$</code> SHA-512, <code>$5$</code> SHA-256, <code>$1$</code> MD5 (obsoleto)</td>
+</tr>
+<tr>
+<td><code>!</code> o <code>*</code></td>
+<td>Sin contraseña válida: no se puede entrar con contraseña</td>
+</tr>
+<tr>
+<td><code>!</code> delante del hash</td>
+<td>Cuenta <strong>bloqueada</strong> (<code>passwd -l</code> o <code>usermod -L</code> añaden este <code>!</code>)</td>
+</tr>
+<tr>
+<td>Vacío</td>
+<td>Sin contraseña: se entra sin ella (¡inseguro!)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Convertir días en fechas</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>date<span class="w"> </span>-d<span class="w"> </span><span class="s2">"1970-01-01 +20385 days"</span><span class="w"> </span>+%d/%m/%Y
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="m">24</span>/10/2025
+</code></pre></div>
+</div>
+<h2 id="etcgroup"><code>/etc/group</code><a class="headerlink" href="#etcgroup" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>asir1:x:1002:lucia,pablo
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>asir1</code></td>
+<td>Nombre del grupo</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>x</code></td>
+<td>Contraseña del grupo (está en <code>/etc/gshadow</code>)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>1002</code></td>
+<td>GID</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>lucia,pablo</code></td>
+<td>Miembros <strong>secundarios</strong>, separados por comas</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">El grupo primario no aparece aquí</p>
+<p>El campo 4 solo lista a quienes tienen el grupo como <strong>secundario</strong>. Los usuarios cuyo grupo <strong>primario</strong> es ese se ven en el campo 4 de <code>/etc/passwd</code>. Por eso la línea del grupo <code>lucia</code> suele tener el campo de miembros vacío.</p>
+</div>
+<h2 id="etcgshadow"><code>/etc/gshadow</code><a class="headerlink" href="#etcgshadow" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>asir1:!::lucia,pablo
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Nombre del grupo</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Contraseña cifrada del grupo (<code>!</code> si no tiene)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Administradores</strong> del grupo (los que pueden gestionar miembros con <code>gpasswd</code>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Miembros</td>
+</tr>
+</tbody>
+</table>
+<h2 id="etclogindefs"><code>/etc/login.defs</code><a class="headerlink" href="#etclogindefs" title="Permanent link">&para;</a></h2>
+<p>No guarda cuentas, sino los <strong>valores por defecto</strong> que usan los comandos de gestión de usuarios:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-Ev<span class="w"> </span><span class="s1">'^(#|$)'</span><span class="w"> </span>/etc/login.defs
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Directiva</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UID_MIN</code> / <code>UID_MAX</code></td>
+<td>Rango de UID para usuarios normales</td>
+</tr>
+<tr>
+<td><code>SYS_UID_MIN</code> / <code>SYS_UID_MAX</code></td>
+<td>Rango para cuentas del sistema</td>
+</tr>
+<tr>
+<td><code>GID_MIN</code> / <code>GID_MAX</code></td>
+<td>Igual para grupos</td>
+</tr>
+<tr>
+<td><code>PASS_MAX_DAYS</code>, <code>PASS_MIN_DAYS</code>, <code>PASS_WARN_AGE</code></td>
+<td>Caducidad por defecto de las contraseñas</td>
+</tr>
+<tr>
+<td><code>CREATE_HOME</code></td>
+<td>Si <code>useradd</code> crea el directorio personal sin <code>-m</code></td>
+</tr>
+<tr>
+<td><code>USERGROUPS_ENAB</code></td>
+<td>Si se crea un grupo con el mismo nombre que el usuario</td>
+</tr>
+<tr>
+<td><code>ENCRYPT_METHOD</code></td>
+<td>Algoritmo de cifrado de las contraseñas</td>
+</tr>
+</tbody>
+</table>
+<h2 id="consultar-las-cuentas-getent">Consultar las cuentas: <code>getent</code><a class="headerlink" href="#consultar-las-cuentas-getent" title="Permanent link">&para;</a></h2>
+<p>Las cuentas no siempre están solo en estos ficheros: en una empresa o un centro educativo pueden venir de un servidor LDAP o de un dominio. El sistema reúne todas las fuentes mediante el <strong>NSS</strong> (<em>Name Service Switch</em>, configurado en <code>/etc/nsswitch.conf</code>). <code>getent</code> consulta esas bases de datos <strong>igual que lo hace el sistema</strong>, sea cual sea su origen:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>getent<span class="w"> </span>passwd<span class="w"> </span>lucia
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span>asir1
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>getent<span class="w"> </span>shadow<span class="w"> </span>lucia
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>$<span class="w"> </span>getent<span class="w"> </span>passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">           </span><span class="c1"># todas las cuentas</span>
+</code></pre></div>
+<p>Por eso es más fiable que <code>grep lucia /etc/passwd</code>.</p>
+<h2 id="filtrar-las-bases-de-datos">Filtrar las bases de datos<a class="headerlink" href="#filtrar-las-bases-de-datos" title="Permanent link">&para;</a></h2>
+<p>Con lo que vimos en la Parte 1 podemos obtener mucha información:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1<span class="w"> </span>/etc/passwd<span class="w">                                  </span><span class="c1"># todos los usuarios</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>$<span class="w"> </span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">'$3 &gt;= 1000 &amp;&amp; $3 &lt; 65534 {print $1}'</span><span class="w"> </span>/etc/passwd<span class="w">   </span><span class="c1"># usuarios normales</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">':/bin/(ba|z)?sh$'</span><span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1<span class="w">     </span><span class="c1"># con shell interactivo</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f7<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w">                 </span><span class="c1"># shells en uso</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span>sudo<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f4<span class="w">                          </span><span class="c1"># quién puede usar sudo</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>$<span class="w"> </span>sudo<span class="w"> </span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">'$2 ~ /^!/ {print $1}'</span><span class="w"> </span>/etc/shadow<span class="w">          </span><span class="c1"># cuentas bloqueadas</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>$<span class="w"> </span>sudo<span class="w"> </span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">'$2 == "" {print $1}'</span><span class="w"> </span>/etc/shadow<span class="w">           </span><span class="c1"># cuentas sin contraseña</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title"><code>awk</code></p>
+<p><code>awk</code> es un lenguaje de procesamiento de texto que trabaja por campos. En <code>awk -F: '$3 &gt;= 1000 {print $1}'</code>, <code>-F:</code> indica el separador, <code>$3</code> es el tercer campo y <code>{print $1}</code> imprime el primero. Para filtrar por números es más cómodo que <code>grep</code>.</p>
+</div>
+<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Fichero</th>
+<th>Clave para recordarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/passwd</code></td>
+<td>7 campos: usuario, x, UID, GID, GECOS, home, shell</td>
+</tr>
+<tr>
+<td><code>/etc/shadow</code></td>
+<td>9 campos: usuario, hash, y 7 campos de fechas en días</td>
+</tr>
+<tr>
+<td><code>/etc/group</code></td>
+<td>4 campos: grupo, x, GID, miembros secundarios</td>
+</tr>
+<tr>
+<td><code>/etc/gshadow</code></td>
+<td>4 campos: grupo, contraseña, administradores, miembros</td>
+</tr>
+<tr>
+<td><code>/etc/login.defs</code></td>
+<td>Valores por defecto de <code>useradd</code> y compañía</td>
+</tr>
+<tr>
+<td><code>getent</code></td>
+<td>Consultar cuentas a través del NSS</td>
+</tr>
+<tr>
+<td><code>vipw</code>, <code>vigr</code></td>
+<td>Editar los ficheros de forma segura</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> Comprueba los permisos de los cuatro ficheros de cuentas. ¿Por qué <code>/etc/shadow</code> no puede leerlo un usuario normal y <code>/etc/passwd</code> sí?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/etc/passwd<span class="w"> </span>/etc/shadow<span class="w"> </span>/etc/group<span class="w"> </span>/etc/gshadow
+</code></pre></div>
+<code>/etc/shadow</code> contiene los <em>hashes</em> de las contraseñas: si cualquiera los pudiera leer, podría intentar descifrarlos por fuerza bruta. <code>/etc/passwd</code> lo necesitan muchos programas para traducir UID a nombres, así que tiene que ser legible para todos.</p>
+</details>
+<p><strong>2.</strong> Interpreta esta línea:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</code></pre></div>
+<details class="success">
+<summary>Solución</summary>
+<p>Es el usuario <code>www-data</code> (el del servidor web en Debian y Ubuntu), con UID 33 y grupo primario 33. Su directorio personal es <code>/var/www</code> y su shell <code>/usr/sbin/nologin</code>, así que no se puede iniciar sesión con él. Por su UID (&lt; 1000) es una cuenta del sistema.</p>
+</details>
+<p><strong>3.</strong> Muestra, para la usuaria <code>lucia</code> creada en el apartado anterior, su línea de <code>passwd</code>, de <code>shadow</code> y los grupos en los que aparece en <code>/etc/group</code>. Usa <code>getent</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>getent<span class="w"> </span>passwd<span class="w"> </span>lucia
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>getent<span class="w"> </span>shadow<span class="w"> </span>lucia
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-w<span class="w"> </span>lucia
+</code></pre></div>
+</details>
+<p><strong>4.</strong> Bloquea la cuenta de <code>lucia</code> con <code>passwd -l</code> y observa qué cambia en su línea de <code>/etc/shadow</code>. Desbloquéala después.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-l<span class="w"> </span>lucia
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>getent<span class="w"> </span>shadow<span class="w"> </span>lucia<span class="w">      </span><span class="c1"># el hash empieza ahora por !</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>passwd<span class="w"> </span>-u<span class="w"> </span>lucia
+</code></pre></div>
+</details>
+<p><strong>5.</strong> ¿Qué algoritmo de cifrado usa tu sistema para las contraseñas? Compruébalo en <code>/etc/shadow</code> y en <code>/etc/login.defs</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s2">"^</span><span class="nv">$USER</span><span class="s2">:"</span><span class="w"> </span>/etc/shadow<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c1-3
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>$<span class="w"> </span>grep<span class="w"> </span>ENCRYPT_METHOD<span class="w"> </span>/etc/login.defs
+</code></pre></div>
+<code>$y$</code> es yescrypt (Debian 11+ y Ubuntu 22.04+); <code>$6$</code> es SHA-512.</p>
+</details>
+<p><strong>6.</strong> ¿En qué fecha cambió <code>lucia</code> su contraseña por última vez? Calcúlalo a partir del campo 3 de <code>/etc/shadow</code> y compáralo con <code>chage -l</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span><span class="nv">dias</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>getent<span class="w"> </span>shadow<span class="w"> </span>lucia<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f3<span class="k">)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>$<span class="w"> </span>date<span class="w"> </span>-d<span class="w"> </span><span class="s2">"1970-01-01 +</span><span class="nv">$dias</span><span class="s2"> days"</span><span class="w"> </span>+%d/%m/%Y
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>chage<span class="w"> </span>-l<span class="w"> </span>lucia
+</code></pre></div>
+</details>
+<p><strong>7.</strong> Lista solo los usuarios <strong>normales</strong> del sistema (UID entre <code>UID_MIN</code> y <code>UID_MAX</code>).</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^UID_(MIN|MAX)'</span><span class="w"> </span>/etc/login.defs
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>$<span class="w"> </span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">'$3 &gt;= 1000 &amp;&amp; $3 &lt;= 60000 {print $1, $3}'</span><span class="w"> </span>/etc/passwd
+</code></pre></div>
+</details>
+<p><strong>8.</strong> ¿Cuántas cuentas del sistema no pueden iniciar sesión (shell <code>nologin</code> o <code>false</code>)?</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-Ec<span class="w"> </span><span class="s1">'(nologin|false)$'</span><span class="w"> </span>/etc/passwd
+</code></pre></div>
+</details>
+<p><strong>9.</strong> Muestra los miembros del grupo <code>sudo</code> (o <code>wheel</code>). ¿Por qué podría haber un usuario con permisos de <code>sudo</code> que no aparezca en esa lista?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$<span class="w"> </span>getent<span class="w"> </span>group<span class="w"> </span>sudo
+</code></pre></div>
+Porque <code>/etc/group</code> solo muestra los miembros secundarios. También podría tener permisos concedidos directamente en <code>/etc/sudoers</code> o en un fichero de <code>/etc/sudoers.d/</code>.</p>
+</details>
+<p><strong>10.</strong> Busca si hay cuentas <strong>sin contraseña</strong> o con el UID 0 aparte de <code>root</code>. ¿Por qué serían un problema de seguridad?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">'$2 == "" {print $1}'</span><span class="w"> </span>/etc/shadow
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>$<span class="w"> </span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">'$3 == 0 {print $1}'</span><span class="w"> </span>/etc/passwd
+</code></pre></div>
+Una cuenta sin contraseña permite entrar a cualquiera. Una cuenta con UID 0 es, a todos los efectos, <code>root</code>, aunque se llame de otra forma: es una técnica habitual para dejar una puerta trasera.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../107-1-usuarios/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 3.11 Gestión de usuarios y grupos">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                3.11 Gestión de usuarios y grupos
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../104-5-permisos/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 3.13 Permisos y propietarios">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                3.13 Permisos y propietarios
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.footer", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

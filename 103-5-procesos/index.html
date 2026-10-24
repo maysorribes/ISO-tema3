@@ -1,0 +1,1884 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del Tema 3 de Implantación de Sistemas Operativos">
+      
+      
+      
+      
+        <link rel="prev" href="../103-4-tuberias/">
+      
+      
+        <link rel="next" href="../103-6-prioridades/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3.7 Procesos - ISO · Tema 3 · Configuración básica de Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#37-procesos-crear-supervisar-y-terminar" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-header__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 3 · Configuración básica de Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.7 Procesos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-nav__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 3 · Configuración básica de Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 1 · Línea de comandos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 1 · Línea de comandos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-1-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1 Variables y caracteres especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-2-filtros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Filtros de texto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3 Gestión básica de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-find-tar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4 Búsqueda, archivado y copia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-redirecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.5 Redirecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-tuberias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.6 Tuberías, tee y xargs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Procesos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-de-trabajos-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control de trabajos (jobs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control de trabajos (jobs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primer-y-segundo-plano" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primer y segundo plano
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suspender-reanudar-y-mover-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suspender, reanudar y mover trabajos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-los-procesos-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver los procesos del sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ver los procesos del sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps-foto-instantanea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ps: foto instantánea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-monitor-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        top: monitor en tiempo real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras-herramientas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras herramientas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#senales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Señales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Señales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviar-senales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enviar señales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de comandos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-6-prioridades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.8 Prioridad de procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-regex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Expresiones regulares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-grep-sed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.10 grep y sed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Gestión de usuarios y grupos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-ficheros-cuentas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Ficheros de cuentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.13 Permisos y propietarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos-especiales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.14 Permisos especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-6-enlaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.15 Enlaces duros y simbólicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-7-fhs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.16 Jerarquía de directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../practicas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practicas/p1-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1 · Archivos y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-de-trabajos-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control de trabajos (jobs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control de trabajos (jobs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primer-y-segundo-plano" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primer y segundo plano
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suspender-reanudar-y-mover-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suspender, reanudar y mover trabajos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-los-procesos-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver los procesos del sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ver los procesos del sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ps-foto-instantanea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ps: foto instantánea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-monitor-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        top: monitor en tiempo real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras-herramientas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras herramientas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#senales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Señales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Señales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviar-senales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enviar señales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de comandos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="37-procesos-crear-supervisar-y-terminar">3.7 Procesos: crear, supervisar y terminar<a class="headerlink" href="#37-procesos-crear-supervisar-y-terminar" title="Permanent link">&para;</a></h1>
+<p>Un <strong>proceso</strong> es un programa en ejecución. Cada vez que lanzamos un comando se crea, al menos, un proceso. El kernel identifica a cada uno con un número único, el <strong>PID</strong> (<em>Process ID</em>), y sabe también quién lo creó: su proceso padre, el <strong>PPID</strong>.</p>
+<h2 id="control-de-trabajos-jobs">Control de trabajos (<em>jobs</em>)<a class="headerlink" href="#control-de-trabajos-jobs" title="Permanent link">&para;</a></h2>
+<p>Desde una terminal podemos tener varios procesos lanzados a la vez. El shell los llama <strong>trabajos</strong> (<em>jobs</em>) y les asigna un número propio, distinto del PID.</p>
+<h3 id="primer-y-segundo-plano">Primer y segundo plano<a class="headerlink" href="#primer-y-segundo-plano" title="Permanent link">&para;</a></h3>
+<ul>
+<li>En <strong>primer plano</strong> (<em>foreground</em>) el proceso ocupa la terminal: no podemos escribir otro comando hasta que termine.</li>
+<li>En <strong>segundo plano</strong> (<em>background</em>) el proceso sigue ejecutándose mientras usamos la terminal.</li>
+</ul>
+<p>Para lanzar un comando directamente en segundo plano se añade <code>&amp;</code> al final:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>sleep<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="m">4521</span>
+</code></pre></div>
+<p><code>[1]</code> es el número de trabajo y <code>4521</code> el PID.</p>
+<h3 id="suspender-reanudar-y-mover-trabajos">Suspender, reanudar y mover trabajos<a class="headerlink" href="#suspender-reanudar-y-mover-trabajos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Suspender el trabajo en primer plano</td>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span></td>
+</tr>
+<tr>
+<td>Interrumpir (terminar) el trabajo en primer plano</td>
+<td><span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span></td>
+</tr>
+<tr>
+<td>Ver los trabajos de esta terminal</td>
+<td><code>jobs</code> (<code>-l</code> muestra también el PID)</td>
+</tr>
+<tr>
+<td>Reanudar en segundo plano</td>
+<td><code>bg %N</code></td>
+</tr>
+<tr>
+<td>Traer a primer plano</td>
+<td><code>fg %N</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>sleep<span class="w"> </span><span class="m">500</span><span class="w">           </span><span class="c1"># se queda bloqueado...</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>^Z<span class="w">                    </span><span class="c1"># Ctrl+Z</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Stopped<span class="w">                 </span>sleep<span class="w"> </span><span class="m">500</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$<span class="w"> </span><span class="nb">bg</span><span class="w"> </span>%1<span class="w">               </span><span class="c1"># sigue ejecutándose en segundo plano</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w"> </span>sleep<span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>$<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>-l
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span><span class="m">4602</span><span class="w"> </span>Running<span class="w">                 </span>sleep<span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%1<span class="w">               </span><span class="c1"># vuelve a primer plano</span>
+</code></pre></div>
+<p>Formas de referirse a un trabajo:</p>
+<table>
+<thead>
+<tr>
+<th>Especificación</th>
+<th>Trabajo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%1</code>, <code>%2</code>...</td>
+<td>Por número</td>
+</tr>
+<tr>
+<td><code>%+</code> o <code>%%</code></td>
+<td>El actual (marcado con <code>+</code> en <code>jobs</code>)</td>
+</tr>
+<tr>
+<td><code>%-</code></td>
+<td>El anterior (marcado con <code>-</code>)</td>
+</tr>
+<tr>
+<td><code>%sleep</code></td>
+<td>El que empieza por <code>sleep</code></td>
+</tr>
+<tr>
+<td><code>%?500</code></td>
+<td>El que contiene <code>500</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Los trabajos son de la terminal</p>
+<p><code>jobs</code> solo muestra los trabajos de la terminal actual. Si cierras la terminal, el shell envía la señal <code>SIGHUP</code> a sus trabajos y normalmente terminan.</p>
+</div>
+<h2 id="ver-los-procesos-del-sistema">Ver los procesos del sistema<a class="headerlink" href="#ver-los-procesos-del-sistema" title="Permanent link">&para;</a></h2>
+<h3 id="ps-foto-instantanea"><code>ps</code>: foto instantánea<a class="headerlink" href="#ps-foto-instantanea" title="Permanent link">&para;</a></h3>
+<p><code>ps</code> muestra los procesos en el momento de ejecutarlo. Por razones históricas acepta tres estilos de opciones:</p>
+<table>
+<thead>
+<tr>
+<th>Estilo</th>
+<th>Ejemplo</th>
+<th>Rasgo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNIX (System V)</td>
+<td><code>ps -ef</code></td>
+<td>Opciones con guion</td>
+</tr>
+<tr>
+<td>BSD</td>
+<td><code>ps aux</code></td>
+<td>Opciones sin guion</td>
+</tr>
+<tr>
+<td>GNU</td>
+<td><code>ps --forest</code></td>
+<td>Opciones largas con dos guiones</td>
+</tr>
+</tbody>
+</table>
+<p>Las combinaciones más usadas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>ps<span class="w">                          </span><span class="c1"># procesos de esta terminal</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$<span class="w"> </span>ps<span class="w"> </span>aux<span class="w">                      </span><span class="c1"># todos los procesos, con usuario, %CPU y %MEM</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w">                      </span><span class="c1"># todos, con PID y PPID</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span>--forest<span class="w">             </span><span class="c1"># en árbol (también: pstree)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>$<span class="w"> </span>ps<span class="w"> </span>-u<span class="w"> </span>alumno<span class="w">                </span><span class="c1"># los de un usuario</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>$<span class="w"> </span>ps<span class="w"> </span>-o<span class="w"> </span>pid,ppid,user,%cpu,%mem,cmd<span class="w">   </span><span class="c1"># elegir columnas</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>$<span class="w"> </span>ps<span class="w"> </span>aux<span class="w"> </span>--sort<span class="o">=</span>-%mem<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w">          </span><span class="c1"># los que más memoria usan</span>
+</code></pre></div>
+<p>Columnas de <code>ps aux</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Columna</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>USER</code></td>
+<td>Propietario</td>
+</tr>
+<tr>
+<td><code>PID</code></td>
+<td>Identificador</td>
+</tr>
+<tr>
+<td><code>%CPU</code> / <code>%MEM</code></td>
+<td>Uso de procesador y memoria</td>
+</tr>
+<tr>
+<td><code>VSZ</code> / <code>RSS</code></td>
+<td>Memoria virtual / memoria física real (KiB)</td>
+</tr>
+<tr>
+<td><code>TTY</code></td>
+<td>Terminal (<code>?</code> si no tiene)</td>
+</tr>
+<tr>
+<td><code>STAT</code></td>
+<td>Estado</td>
+</tr>
+<tr>
+<td><code>START</code> / <code>TIME</code></td>
+<td>Hora de inicio / tiempo de CPU consumido</td>
+</tr>
+<tr>
+<td><code>COMMAND</code></td>
+<td>Comando</td>
+</tr>
+</tbody>
+</table>
+<p>Estados más habituales (<code>STAT</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>R</code></td>
+<td>En ejecución o listo para ejecutarse</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>Dormido, esperando un evento (la mayoría)</td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>Esperando entrada/salida; no se puede interrumpir</td>
+</tr>
+<tr>
+<td><code>T</code></td>
+<td>Detenido (por ejemplo con <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span>)</td>
+</tr>
+<tr>
+<td><code>Z</code></td>
+<td>Zombi: ha terminado, pero su padre aún no ha recogido su estado</td>
+</tr>
+</tbody>
+</table>
+<h3 id="top-monitor-en-tiempo-real"><code>top</code>: monitor en tiempo real<a class="headerlink" href="#top-monitor-en-tiempo-real" title="Permanent link">&para;</a></h3>
+<p><code>top</code> muestra los procesos actualizándose cada pocos segundos. La parte superior resume el estado del sistema: tiempo encendido, usuarios, <strong>carga media</strong>, tareas por estado, uso de CPU y memoria.</p>
+<p>Teclas útiles dentro de <code>top</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Tecla</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-p">P</kbd></span></td>
+<td>Ordenar por CPU (por defecto)</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-m">M</kbd></span></td>
+<td>Ordenar por memoria</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-t">T</kbd></span></td>
+<td>Ordenar por tiempo de CPU</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-n">N</kbd></span></td>
+<td>Ordenar por PID</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-c">C</kbd></span></td>
+<td>Mostrar la ruta completa del comando</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-u">U</kbd></span></td>
+<td>Filtrar por usuario</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-k">K</kbd></span></td>
+<td>Enviar una señal (matar) a un PID</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-r">R</kbd></span></td>
+<td>Cambiar la prioridad (<em>renice</em>) de un PID</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-1">1</kbd></span></td>
+<td>Ver cada CPU por separado</td>
+</tr>
+<tr>
+<td><span class="keys"><kbd class="key-q">Q</kbd></span></td>
+<td>Salir</td>
+</tr>
+</tbody>
+</table>
+<p><code>htop</code> es una alternativa más visual (hay que instalarla).</p>
+<h3 id="otras-herramientas">Otras herramientas<a class="headerlink" href="#otras-herramientas" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>uptime<span class="w">            </span><span class="c1"># tiempo encendido, usuarios y carga media (1, 5 y 15 min)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>free<span class="w"> </span>-h<span class="w">           </span><span class="c1"># memoria y swap</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>$<span class="w"> </span>pgrep<span class="w"> </span>sshd<span class="w">        </span><span class="c1"># PID de los procesos cuyo nombre coincide</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>$<span class="w"> </span>pgrep<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-l<span class="w"> </span>ssh
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>$<span class="w"> </span>pidof<span class="w"> </span>sshd<span class="w">        </span><span class="c1"># PID de un programa por su nombre exacto</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>$<span class="w"> </span>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>free<span class="w"> </span>-h<span class="w">    </span><span class="c1"># repite un comando cada 2 segundos (Ctrl+C para salir)</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Carga media</p>
+<p>La carga media indica cuántos procesos, de promedio, estaban ejecutándose o esperando CPU. Se interpreta según el número de núcleos: con 4 núcleos, una carga de 4 significa que están todos ocupados.</p>
+</div>
+<h2 id="senales">Señales<a class="headerlink" href="#senales" title="Permanent link">&para;</a></h2>
+<p>Para comunicarse con un proceso le enviamos <strong>señales</strong>. Cada una tiene un número y un nombre:</p>
+<table>
+<thead>
+<tr>
+<th>Nº</th>
+<th>Nombre</th>
+<th>Efecto habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>SIGHUP</code></td>
+<td>"Cuelgue". Muchos servicios la usan para <strong>releer su configuración</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>SIGINT</code></td>
+<td>Interrupción (lo que envía <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>)</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>SIGKILL</code></td>
+<td>Terminación inmediata. <strong>No se puede capturar ni ignorar</strong></td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>SIGTERM</code></td>
+<td>Petición de terminar ordenadamente. <strong>Es la señal por defecto</strong></td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>SIGCONT</code></td>
+<td>Continuar un proceso detenido</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>SIGSTOP</code></td>
+<td>Detener (no se puede ignorar)</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>SIGTSTP</code></td>
+<td>Detener desde terminal (lo que envía <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span>)</td>
+</tr>
+</tbody>
+</table>
+<p><code>kill -l</code> muestra la lista completa.</p>
+<h3 id="enviar-senales">Enviar señales<a class="headerlink" href="#enviar-senales" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span><span class="m">4521</span><span class="w">              </span><span class="c1"># envía SIGTERM al PID 4521</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-15<span class="w"> </span><span class="m">4521</span><span class="w">          </span><span class="c1"># igual, por número</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-SIGTERM<span class="w"> </span><span class="m">4521</span><span class="w">     </span><span class="c1"># igual, por nombre</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-TERM<span class="w"> </span><span class="m">4521</span><span class="w">        </span><span class="c1"># igual, sin el prefijo SIG</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-9<span class="w"> </span><span class="m">4521</span><span class="w">           </span><span class="c1"># SIGKILL: último recurso</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>%1<span class="w">                </span><span class="c1"># también funciona con trabajos</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-HUP<span class="w"> </span><span class="k">$(</span>pidof<span class="w"> </span>nginx<span class="k">)</span><span class="w">   </span><span class="c1"># recargar la configuración de un servicio</span>
+</code></pre></div>
+<p>Por nombre en lugar de PID:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>pkill<span class="w"> </span>sleep<span class="w">            </span><span class="c1"># señal a los procesos cuyo nombre contiene "sleep"</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$<span class="w"> </span>pkill<span class="w"> </span>-u<span class="w"> </span>alumno<span class="w">        </span><span class="c1"># a todos los procesos de un usuario</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>$<span class="w"> </span>killall<span class="w"> </span>sleep<span class="w">          </span><span class="c1"># a todos los procesos llamados exactamente "sleep"</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Primero <code>SIGTERM</code>, luego <code>SIGKILL</code></p>
+<p><code>SIGTERM</code> deja que el programa cierre ficheros y libere recursos. <code>SIGKILL</code> lo corta en seco y puede dejar datos corruptos o ficheros temporales. Úsala solo si el proceso no responde.</p>
+</div>
+<h2 id="resumen-de-comandos">Resumen de comandos<a class="headerlink" href="#resumen-de-comandos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>Lanzar en segundo plano</td>
+</tr>
+<tr>
+<td><code>jobs</code>, <code>fg</code>, <code>bg</code></td>
+<td>Gestionar trabajos de la terminal</td>
+</tr>
+<tr>
+<td><code>ps</code></td>
+<td>Listar procesos</td>
+</tr>
+<tr>
+<td><code>top</code> / <code>htop</code></td>
+<td>Monitor de procesos en tiempo real</td>
+</tr>
+<tr>
+<td><code>uptime</code>, <code>free</code></td>
+<td>Carga y memoria del sistema</td>
+</tr>
+<tr>
+<td><code>watch</code></td>
+<td>Repetir un comando periódicamente</td>
+</tr>
+<tr>
+<td><code>pgrep</code>, <code>pidof</code></td>
+<td>Obtener el PID por nombre</td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>Enviar una señal por PID o trabajo</td>
+</tr>
+<tr>
+<td><code>pkill</code>, <code>killall</code></td>
+<td>Enviar una señal por nombre</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> Lanza <code>sleep 600</code> en primer plano, suspéndelo, reanúdalo en segundo plano y comprueba con <code>jobs -l</code> su estado y su PID.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>sleep<span class="w"> </span><span class="m">600</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>^Z
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$<span class="w"> </span><span class="nb">bg</span><span class="w"> </span>%1
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>$<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>-l
+</code></pre></div>
+</details>
+<p><strong>2.</strong> Lanza tres <code>sleep</code> en segundo plano (<code>sleep 1000 &amp;</code>, <code>sleep 2000 &amp;</code>, <code>sleep 3000 &amp;</code>). Trae a primer plano el de <code>2000</code> usando su contenido y termínalo con <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%?2000
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>^C
+</code></pre></div>
+</details>
+<p><strong>3.</strong> Termina el resto de trabajos <code>sleep</code> con una sola orden por nombre.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>pkill<span class="w"> </span>sleep<span class="w">        </span><span class="c1"># o: killall sleep</span>
+</code></pre></div>
+</details>
+<p><strong>4.</strong> Muestra todos los procesos del sistema en forma de árbol. ¿Cuál es el PID 1 y qué proceso es?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span>--forest<span class="w">     </span><span class="c1"># o: pstree -p</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>$<span class="w"> </span>ps<span class="w"> </span>-p<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+El PID 1 es el primer proceso que arranca el kernel; en las distribuciones actuales es <code>systemd</code>. Es el antepasado de todos los demás.</p>
+</details>
+<p><strong>5.</strong> Muestra solo el PID, el usuario, el % de memoria y el comando de los 5 procesos que más memoria consumen.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>ps<span class="w"> </span>-eo<span class="w"> </span>pid,user,%mem,cmd<span class="w"> </span>--sort<span class="o">=</span>-%mem<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
+</code></pre></div>
+Son 6 líneas porque la primera es la cabecera.</p>
+</details>
+<p><strong>6.</strong> Abre <code>top</code>, ordena por memoria, filtra los procesos de tu usuario y sal.</p>
+<details class="success">
+<summary>Solución</summary>
+<p>Dentro de <code>top</code>: <span class="keys"><kbd class="key-shift">Shift</kbd><span>+</span><kbd class="key-m">M</kbd></span>, después <span class="keys"><kbd class="key-u">U</kbd></span>, tu nombre de usuario y <span class="keys"><kbd class="key-enter">Enter</kbd></span>; para salir, <span class="keys"><kbd class="key-q">Q</kbd></span>.</p>
+</details>
+<p><strong>7.</strong> ¿Cuál es la carga media del sistema? ¿Cuántos núcleos tiene? ¿Está muy cargado?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>uptime
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$<span class="w"> </span>nproc
+</code></pre></div>
+Si la carga media es claramente inferior al número de núcleos, el sistema va holgado.</p>
+</details>
+<p><strong>8.</strong> Con <code>watch</code>, muestra cada segundo el número de procesos que hay en el sistema.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'ps -e | wc -l'</span>
+</code></pre></div>
+Las comillas hacen que la tubería la ejecute <code>watch</code> y no el shell una sola vez.</p>
+</details>
+<p><strong>9.</strong> Si tienes un servidor web instalado (<code>apache2</code> o <code>nginx</code>), averigua los PID de sus procesos y haz que recargue la configuración enviando la señal adecuada.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>pidof<span class="w"> </span>nginx<span class="w">                       </span><span class="c1"># o pgrep apache2</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>pkill<span class="w"> </span>-HUP<span class="w"> </span>nginx<span class="w">             </span><span class="c1"># o: sudo kill -HUP &lt;PID del proceso maestro&gt;</span>
+</code></pre></div>
+En sistemas con systemd lo habitual es <code>sudo systemctl reload nginx</code>, que hace lo mismo por debajo.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../103-4-tuberias/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 3.6 Tuberías, tee y xargs">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                3.6 Tuberías, tee y xargs
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../103-6-prioridades/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 3.8 Prioridad de procesos">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                3.8 Prioridad de procesos
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.footer", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1720 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del Tema 3 de Implantación de Sistemas Operativos">
+      
+      
+      
+      
+        <link rel="prev" href="../103-6-prioridades/">
+      
+      
+        <link rel="next" href="../103-7-grep-sed/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3.9 Expresiones regulares - ISO · Tema 3 · Configuración básica de Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#39-expresiones-regulares" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-header__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 3 · Configuración básica de Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.9 Expresiones regulares
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-nav__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 3 · Configuración básica de Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 1 · Línea de comandos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 1 · Línea de comandos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-1-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1 Variables y caracteres especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-2-filtros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Filtros de texto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3 Gestión básica de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-find-tar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4 Búsqueda, archivado y copia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-redirecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.5 Redirecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-tuberias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.6 Tuberías, tee y xargs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-5-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-6-prioridades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.8 Prioridad de procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Expresiones regulares
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Expresiones regulares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#expresiones-regulares-basicas-y-extendidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expresiones regulares básicas y extendidas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caracteres-literales-y-el-punto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caracteres literales y el punto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anclas-inicio-y-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anclas: inicio y final
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listas-de-caracteres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Listas de caracteres: [ ]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Listas de caracteres: [ ]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clases-posix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clases POSIX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuantificadores-cuantas-veces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuantificadores: cuántas veces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grupos-y-alternativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grupos y alternativas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias-inversas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias inversas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-metacaracteres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de metacaracteres
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-grep-sed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.10 grep y sed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Gestión de usuarios y grupos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-ficheros-cuentas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Ficheros de cuentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.13 Permisos y propietarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos-especiales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.14 Permisos especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-6-enlaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.15 Enlaces duros y simbólicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-7-fhs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.16 Jerarquía de directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../practicas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practicas/p1-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1 · Archivos y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#expresiones-regulares-basicas-y-extendidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expresiones regulares básicas y extendidas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caracteres-literales-y-el-punto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caracteres literales y el punto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anclas-inicio-y-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anclas: inicio y final
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listas-de-caracteres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Listas de caracteres: [ ]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Listas de caracteres: [ ]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clases-posix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clases POSIX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuantificadores-cuantas-veces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuantificadores: cuántas veces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grupos-y-alternativas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grupos y alternativas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias-inversas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias inversas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-metacaracteres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de metacaracteres
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="39-expresiones-regulares">3.9 Expresiones regulares<a class="headerlink" href="#39-expresiones-regulares" title="Permanent link">&para;</a></h1>
+<p>Una <strong>expresión regular</strong> (<em>regex</em>) es un patrón que describe un conjunto de cadenas de texto. Sirve para buscar, validar o transformar texto: "líneas que empiezan por <code>#</code>", "cualquier dirección IP", "palabras de cinco letras acabadas en <em>ción</em>"...</p>
+<p>Las usan muchas herramientas: <code>grep</code>, <code>sed</code>, <code>awk</code>, <code>less</code>, <code>vim</code>, y casi todos los lenguajes de programación.</p>
+<div class="admonition warning">
+<p class="admonition-title">No confundir con los comodines</p>
+<p>Los comodines del shell (<code>*</code>, <code>?</code>, <code>[ ]</code>) se parecen, pero <strong>no son lo mismo</strong>. En un comodín <code>*</code> significa "cualquier cosa"; en una expresión regular significa "el elemento anterior repetido cero o más veces". Los comodines sirven para <strong>nombres de ficheros</strong>; las expresiones regulares, para <strong>contenido de texto</strong>.</p>
+</div>
+<p>Para practicar usaremos <code>grep</code> y este fichero:</p>
+<div class="highlight"><span class="filename">regex.txt</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Ana Garcia 600123456 ana.garcia@iesmail.es
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>luis perez 961234567 luis@correo.com
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Marta Lopez 655 11 22 33 marta.lopez@iesmail.es
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a># esto es un comentario
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pedro gomez 34600999888
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>color
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>colour
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>192.168.1.10
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>10.0.0.300
+</code></pre></div>
+<h2 id="expresiones-regulares-basicas-y-extendidas">Expresiones regulares básicas y extendidas<a class="headerlink" href="#expresiones-regulares-basicas-y-extendidas" title="Permanent link">&para;</a></h2>
+<p>Hay dos "dialectos" POSIX:</p>
+<ul>
+<li><strong>Básicas (BRE)</strong>: las que usan por defecto <code>grep</code> y <code>sed</code>. Algunos metacaracteres (<code>?</code>, <code>+</code>, <code>{ }</code>, <code>|</code>, <code>( )</code>) hay que escribirlos con barra invertida para que tengan significado especial.</li>
+<li><strong>Extendidas (ERE)</strong>: se activan con <code>grep -E</code> (o <code>egrep</code>) y <code>sed -E</code> (o <code>sed -r</code>). Los metacaracteres funcionan <strong>sin</strong> barra.</li>
+</ul>
+<p>En este apartado usaremos casi siempre <strong>extendidas</strong> (<code>grep -E</code>), que son más legibles.</p>
+<h2 id="caracteres-literales-y-el-punto">Caracteres literales y el punto<a class="headerlink" href="#caracteres-literales-y-el-punto" title="Permanent link">&para;</a></h2>
+<p>Una letra o número coincide consigo mismo. El <strong>punto</strong> <code>.</code> coincide con <strong>cualquier carácter</strong> (uno solo):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'iesmail'</span><span class="w"> </span>regex.txt<span class="w">       </span><span class="c1"># literal</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'col.r'</span><span class="w"> </span>regex.txt<span class="w">         </span><span class="c1"># color... y también colXr, col3r</span>
+</code></pre></div>
+<p>Para buscar un punto literal hay que <strong>escaparlo</strong> con <code>\</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'iesmail\.es'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+<h2 id="anclas-inicio-y-final">Anclas: inicio y final<a class="headerlink" href="#anclas-inicio-y-final" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ancla</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>^</code></td>
+<td>Inicio de línea</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>Final de línea</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>Límite de palabra (extensión de GNU)</td>
+</tr>
+<tr>
+<td><code>\&lt;</code> / <code>\&gt;</code></td>
+<td>Inicio / final de palabra (GNU)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'^#'</span><span class="w"> </span>regex.txt<span class="w">            </span><span class="c1"># líneas que empiezan por #</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">'^#'</span><span class="w"> </span>regex.txt<span class="w">         </span><span class="c1"># las que no son comentarios</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'es$'</span><span class="w"> </span>regex.txt<span class="w">           </span><span class="c1"># acaban en "es"</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'^$'</span><span class="w"> </span>fichero<span class="w">              </span><span class="c1"># líneas vacías</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>$<span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">'^$'</span><span class="w"> </span>fichero<span class="w">           </span><span class="c1"># quitar líneas vacías</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'\bana\b'</span><span class="w"> </span>regex.txt<span class="w">       </span><span class="c1"># la palabra "ana" completa</span>
+</code></pre></div>
+<h2 id="listas-de-caracteres">Listas de caracteres: <code>[ ]</code><a class="headerlink" href="#listas-de-caracteres" title="Permanent link">&para;</a></h2>
+<p>Entre corchetes se pone un <strong>conjunto</strong> de caracteres; coincide con <strong>uno</strong> de ellos:</p>
+<table>
+<thead>
+<tr>
+<th>Expresión</th>
+<th>Coincide con</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[aeiou]</code></td>
+<td>Una vocal minúscula</td>
+</tr>
+<tr>
+<td><code>[0-9]</code></td>
+<td>Un dígito</td>
+</tr>
+<tr>
+<td><code>[a-zA-Z]</code></td>
+<td>Una letra sin acentos</td>
+</tr>
+<tr>
+<td><code>[^0-9]</code></td>
+<td>Cualquier carácter que <strong>no</strong> sea un dígito (<code>^</code> al principio niega)</td>
+</tr>
+<tr>
+<td><code>[.-]</code></td>
+<td>Un punto o un guion (dentro de corchetes el punto es literal)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'^[A-Z]'</span><span class="w"> </span>regex.txt<span class="w">        </span><span class="c1"># líneas que empiezan por mayúscula</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'^[^#]'</span><span class="w"> </span>regex.txt<span class="w">         </span><span class="c1"># líneas que no empiezan por #</span>
+</code></pre></div>
+<h3 id="clases-posix">Clases POSIX<a class="headerlink" href="#clases-posix" title="Permanent link">&para;</a></h3>
+<p>Son conjuntos predefinidos que funcionan <strong>dentro</strong> de unos corchetes (de ahí los dobles corchetes). Tienen la ventaja de respetar el idioma (por ejemplo, incluyen la <code>ñ</code> y las vocales con tilde):</p>
+<table>
+<thead>
+<tr>
+<th>Clase</th>
+<th>Equivale a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[[:digit:]]</code></td>
+<td><code>[0-9]</code></td>
+</tr>
+<tr>
+<td><code>[[:alpha:]]</code></td>
+<td>Letras</td>
+</tr>
+<tr>
+<td><code>[[:alnum:]]</code></td>
+<td>Letras y dígitos</td>
+</tr>
+<tr>
+<td><code>[[:upper:]]</code> / <code>[[:lower:]]</code></td>
+<td>Mayúsculas / minúsculas</td>
+</tr>
+<tr>
+<td><code>[[:space:]]</code></td>
+<td>Espacio, tabulador, salto de línea...</td>
+</tr>
+<tr>
+<td><code>[[:punct:]]</code></td>
+<td>Signos de puntuación</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'[[:digit:]]'</span><span class="w"> </span>regex.txt<span class="w">         </span><span class="c1"># líneas con algún dígito</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'^[[:upper:]]'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+<h2 id="cuantificadores-cuantas-veces">Cuantificadores: cuántas veces<a class="headerlink" href="#cuantificadores-cuantas-veces" title="Permanent link">&para;</a></h2>
+<p>Se colocan <strong>detrás</strong> del elemento al que afectan:</p>
+<table>
+<thead>
+<tr>
+<th>Cuantificador (ERE)</th>
+<th>En BRE</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td><code>*</code></td>
+<td>0 o más veces</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td><code>\+</code></td>
+<td>1 o más veces</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td><code>\?</code></td>
+<td>0 o 1 vez (opcional)</td>
+</tr>
+<tr>
+<td><code>{n}</code></td>
+<td><code>\{n\}</code></td>
+<td>Exactamente n veces</td>
+</tr>
+<tr>
+<td><code>{n,}</code></td>
+<td><code>\{n,\}</code></td>
+<td>Al menos n veces</td>
+</tr>
+<tr>
+<td><code>{n,m}</code></td>
+<td><code>\{n,m\}</code></td>
+<td>Entre n y m veces</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'colou?r'</span><span class="w"> </span>regex.txt<span class="w">              </span><span class="c1"># color y colour</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'[0-9]{9}'</span><span class="w"> </span>regex.txt<span class="w">             </span><span class="c1"># nueve dígitos seguidos</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^[0-9]+$'</span><span class="w"> </span>fichero<span class="w">               </span><span class="c1"># líneas que solo tienen dígitos</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'6[0-9]{8}'</span><span class="w"> </span>regex.txt<span class="w">            </span><span class="c1"># un móvil que empieza por 6</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'[0-9]\{9\}'</span><span class="w"> </span>regex.txt<span class="w">              </span><span class="c1"># lo mismo en BRE</span>
+</code></pre></div>
+<p>La combinación <code>.*</code> significa "cualquier cosa, de cualquier longitud":</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^Ana.*es$'</span><span class="w"> </span>regex.txt<span class="w">            </span><span class="c1"># empieza por Ana y acaba en es</span>
+</code></pre></div>
+<h2 id="grupos-y-alternativas">Grupos y alternativas<a class="headerlink" href="#grupos-y-alternativas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Los <strong>paréntesis</strong> <code>( )</code> agrupan una parte para aplicarle un cuantificador o para reutilizarla.</li>
+<li>La <strong>barra vertical</strong> <code>|</code> indica alternativa: "esto <strong>o</strong> aquello".</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'perez|gomez'</span><span class="w"> </span>regex.txt<span class="w">          </span><span class="c1"># una u otra</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(Ana|Marta) '</span><span class="w"> </span>regex.txt
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'([0-9]{1,3}\.){3}[0-9]{1,3}'</span><span class="w"> </span>regex.txt<span class="w">   </span><span class="c1"># aspecto de IPv4</span>
+</code></pre></div>
+<p>En BRE se escriben <code>\( \)</code> y <code>\|</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Coincidir con la forma no es validar</p>
+<p>El último patrón encuentra <code>10.0.0.300</code>, que <strong>no</strong> es una IP válida (300 &gt; 255). Las expresiones regulares describen <strong>forma</strong>, no significado. Validar una IP con exactitud requiere un patrón mucho más largo.</p>
+</div>
+<h2 id="referencias-inversas">Referencias inversas<a class="headerlink" href="#referencias-inversas" title="Permanent link">&para;</a></h2>
+<p>Lo que coincide dentro de un grupo <code>( )</code> se puede volver a usar con <code>\1</code>, <code>\2</code>... (el primer grupo, el segundo...):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'(.)\1'</span><span class="w"> </span>regex.txt<span class="w">          </span><span class="c1"># algún carácter repetido seguido: "ll", "00"...</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'\b(\w+) \1\b'</span><span class="w"> </span>texto.txt<span class="w">   </span><span class="c1"># palabras repetidas: "el el", "de de"</span>
+</code></pre></div>
+<p>Donde realmente brillan es en las sustituciones con <code>sed</code> (apartado siguiente).</p>
+<h2 id="resumen-de-metacaracteres">Resumen de metacaracteres<a class="headerlink" href="#resumen-de-metacaracteres" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metacarácter</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>Un carácter cualquiera</td>
+</tr>
+<tr>
+<td><code>^</code> / <code>$</code></td>
+<td>Inicio / final de línea</td>
+</tr>
+<tr>
+<td><code>[abc]</code> / <code>[^abc]</code></td>
+<td>Uno de la lista / uno que no esté</td>
+</tr>
+<tr>
+<td><code>[[:clase:]]</code></td>
+<td>Clase POSIX (<code>digit</code>, <code>alpha</code>, <code>upper</code>...)</td>
+</tr>
+<tr>
+<td><code>*</code> <code>+</code> <code>?</code></td>
+<td>0 o más / 1 o más / 0 o 1</td>
+</tr>
+<tr>
+<td><code>{n,m}</code></td>
+<td>Entre n y m repeticiones</td>
+</tr>
+<tr>
+<td><code>( )</code></td>
+<td>Grupo</td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td>Alternativa</td>
+</tr>
+<tr>
+<td><code>\1</code></td>
+<td>Referencia al primer grupo</td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>Escapa un metacarácter (<code>\.</code>, <code>\$</code>, <code>\*</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
+<p>Usa el fichero <code>regex.txt</code>.</p>
+<p><strong>1.</strong> Muestra las líneas que <strong>no</strong> sean comentarios ni estén vacías.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-Ev<span class="w"> </span><span class="s1">'^#|^$'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+</details>
+<p><strong>2.</strong> Muestra las líneas que empiezan por minúscula.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'^[a-z]'</span><span class="w"> </span>regex.txt<span class="w">        </span><span class="c1"># o: grep '^[[:lower:]]' regex.txt</span>
+</code></pre></div>
+</details>
+<p><strong>3.</strong> Muestra las líneas que contienen un número de teléfono de 9 dígitos <strong>seguidos</strong>.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'[0-9]{9}'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+Fíjate en que también aparece <code>34600999888</code> (11 dígitos), porque contiene 9 seguidos. Para exigir exactamente 9: <code>grep -E '\b[0-9]{9}\b' regex.txt</code>.</p>
+</details>
+<p><strong>4.</strong> Busca <code>color</code> y <code>colour</code> con <strong>una</strong> expresión regular, primero extendida y después básica.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'colou?r'</span><span class="w"> </span>regex.txt
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">'colou\?r'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+</details>
+<p><strong>5.</strong> Muestra solo las direcciones de correo del dominio <code>iesmail.es</code> (usa <code>-o</code>, que muestra solo la parte que coincide).</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-Eo<span class="w"> </span><span class="s1">'[[:alnum:]._]+@iesmail\.es'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+</details>
+<p><strong>6.</strong> Extrae todas las direcciones de correo, sea cual sea el dominio.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-Eo<span class="w"> </span><span class="s1">'[[:alnum:]._-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+</details>
+<p><strong>7.</strong> Muestra las líneas que tienen aspecto de dirección IPv4. ¿Hay alguna que no sea válida?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^([0-9]{1,3}\.){3}[0-9]{1,3}$'</span><span class="w"> </span>regex.txt
+</code></pre></div>
+<code>10.0.0.300</code> encaja con el patrón, pero no es válida porque el último octeto supera 255.</p>
+</details>
+<p><strong>8.</strong> En <code>/etc/passwd</code>, muestra los usuarios cuyo UID (tercer campo) tenga 4 cifras.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^[^:]+:[^:]*:[0-9]{4}:'</span><span class="w"> </span>/etc/passwd
+</code></pre></div>
+<code>[^:]+</code> significa "uno o más caracteres que no sean dos puntos", es decir, un campo completo.</p>
+</details>
+<p><strong>9.</strong> Muestra las líneas de <code>/etc/services</code> que se refieren a los puertos 22, 80 o 443 por TCP.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'[[:space:]](22|80|443)/tcp'</span><span class="w"> </span>/etc/services
+</code></pre></div>
+</details>
+<p><strong>10.</strong> ¿Con cuáles de estas cadenas coincide <code>^a.c$</code>? <code>abc</code>, <code>ac</code>, <code>a.c</code>, <code>abbc</code>, <code>aXc</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<p>Con <code>abc</code>, <code>a.c</code> y <code>aXc</code>: debe haber exactamente un carácter (cualquiera) entre la <code>a</code> y la <code>c</code>.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../103-6-prioridades/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 3.8 Prioridad de procesos">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                3.8 Prioridad de procesos
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../103-7-grep-sed/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 3.10 grep y sed">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                3.10 grep y sed
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.footer", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

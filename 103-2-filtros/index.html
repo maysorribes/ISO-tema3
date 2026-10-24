@@ -1,0 +1,2034 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del Tema 3 de Implantación de Sistemas Operativos">
+      
+      
+      
+      
+        <link rel="prev" href="../103-1-variables/">
+      
+      
+        <link rel="next" href="../103-3-archivos/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>3.2 Filtros de texto - ISO · Tema 3 · Configuración básica de Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#32-filtros-de-texto" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-header__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 3 · Configuración básica de Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.2 Filtros de texto
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 3 · Configuración básica de Linux" class="md-nav__button md-logo" aria-label="ISO · Tema 3 · Configuración básica de Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 3 · Configuración básica de Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 1 · Línea de comandos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 1 · Línea de comandos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-1-variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1 Variables y caracteres especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Filtros de texto
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Filtros de texto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrada-salida-redirecciones-y-tuberias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada, salida, redirecciones y tuberías
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fichero-de-practica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichero de práctica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver ficheros
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ver ficheros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cat-mostrar-y-concatenar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cat: mostrar y concatenar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#less-paginar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        less: paginar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head-y-tail-principio-y-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        head y tail: principio y final
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nl-numerar-lineas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nl: numerar líneas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-ficheros-comprimidos-zcat-bzcat-xzcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver ficheros comprimidos: zcat, bzcat, xzcat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buscar-lineas-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buscar líneas: grep
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contar-wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contar: wc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cortar-columnas-cut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cortar columnas: cut
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordenar-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordenar: sort
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lineas-repetidas-uniq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Líneas repetidas: uniq
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traducir-caracteres-tr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traducir caracteres: tr
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unir-y-dividir-ficheros-paste-y-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unir y dividir ficheros: paste y split
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editar-texto-en-flujo-sed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editar texto en flujo: sed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integridad-de-ficheros-sumas-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integridad de ficheros: sumas de comprobación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-el-contenido-en-bruto-od" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver el contenido "en bruto": od
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de comandos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3 Gestión básica de archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-3-find-tar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4 Búsqueda, archivado y copia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-redirecciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.5 Redirecciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-4-tuberias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.6 Tuberías, tee y xargs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-5-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-6-prioridades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.8 Prioridad de procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-regex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Expresiones regulares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../103-7-grep-sed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.10 grep y sed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte 2 · Usuarios y sistema de archivos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Gestión de usuarios y grupos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../107-1-ficheros-cuentas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Ficheros de cuentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.13 Permisos y propietarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-5-permisos-especiales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.14 Permisos especiales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-6-enlaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.15 Enlaces duros y simbólicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../104-7-fhs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.16 Jerarquía de directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../practicas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prácticas
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Prácticas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practicas/p1-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1 · Archivos y directorios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrada-salida-redirecciones-y-tuberias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entrada, salida, redirecciones y tuberías
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fichero-de-practica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fichero de práctica
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver ficheros
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ver ficheros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cat-mostrar-y-concatenar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cat: mostrar y concatenar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#less-paginar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        less: paginar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head-y-tail-principio-y-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        head y tail: principio y final
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nl-numerar-lineas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nl: numerar líneas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-ficheros-comprimidos-zcat-bzcat-xzcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver ficheros comprimidos: zcat, bzcat, xzcat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buscar-lineas-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buscar líneas: grep
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contar-wc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contar: wc
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cortar-columnas-cut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cortar columnas: cut
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ordenar-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordenar: sort
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lineas-repetidas-uniq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Líneas repetidas: uniq
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traducir-caracteres-tr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traducir caracteres: tr
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unir-y-dividir-ficheros-paste-y-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unir y dividir ficheros: paste y split
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editar-texto-en-flujo-sed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editar texto en flujo: sed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integridad-de-ficheros-sumas-de-comprobacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integridad de ficheros: sumas de comprobación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ver-el-contenido-en-bruto-od" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ver el contenido "en bruto": od
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-de-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen de comandos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="32-filtros-de-texto">3.2 Filtros de texto<a class="headerlink" href="#32-filtros-de-texto" title="Permanent link">&para;</a></h1>
+<p>Una de las ideas centrales de Unix (y por tanto de Linux) es que cada programa haga <strong>una sola cosa y la haga bien</strong>, y que los programas se puedan <strong>combinar</strong> entre sí pasándose texto. A esos programas que reciben texto, lo transforman y lo devuelven los llamamos <strong>filtros</strong>.</p>
+<h2 id="entrada-salida-redirecciones-y-tuberias">Entrada, salida, redirecciones y tuberías<a class="headerlink" href="#entrada-salida-redirecciones-y-tuberias" title="Permanent link">&para;</a></h2>
+<p>Todo programa tiene tres canales:</p>
+<table>
+<thead>
+<tr>
+<th>Canal</th>
+<th>Nombre</th>
+<th>Por defecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Entrada estándar (<code>stdin</code>)</td>
+<td>Teclado</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Salida estándar (<code>stdout</code>)</td>
+<td>Pantalla</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Salida de error (<code>stderr</code>)</td>
+<td>Pantalla</td>
+</tr>
+</tbody>
+</table>
+<p>Podemos cambiar hacia dónde van con estos operadores (los veremos a fondo en los apartados 3.5 y 3.6):</p>
+<table>
+<thead>
+<tr>
+<th>Operador</th>
+<th>Efecto</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;</code></td>
+<td>Envía la salida a un fichero (lo <strong>sobrescribe</strong>)</td>
+<td><code>ls &gt; lista.txt</code></td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Añade la salida al <strong>final</strong> del fichero</td>
+<td><code>date &gt;&gt; registro.txt</code></td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>Toma la entrada desde un fichero</td>
+<td><code>sort &lt; nombres.txt</code></td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td><strong>Tubería</strong>: la salida de un comando es la entrada del siguiente</td>
+<td><code>ls | wc -l</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>cat<span class="w"> </span>&gt;<span class="w"> </span>notas.txt<span class="w">        </span><span class="c1"># escribe texto y termina con Ctrl+D</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Primera<span class="w"> </span>línea
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Segunda<span class="w"> </span>línea
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>$<span class="w"> </span>cat<span class="w"> </span>notas.txt
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Primera<span class="w"> </span>línea
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Segunda<span class="w"> </span>línea
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Tercera línea"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>notas.txt
+</code></pre></div>
+<h2 id="fichero-de-practica">Fichero de práctica<a class="headerlink" href="#fichero-de-practica" title="Permanent link">&para;</a></h2>
+<p>Para los ejemplos usaremos este fichero con datos de alumnos (<code>nombre:apellido:ciclo:curso:nota</code>). Créalo copiándolo en un editor o con <code>cat &gt; alumnos.txt</code>:</p>
+<div class="highlight"><span class="filename">alumnos.txt</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lucia:garcia:ASIR:1:8
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pablo:martinez:SMR:2:5
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>marta:lopez:ASIR:2:9
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>jorge:sanchez:DAW:1:4
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>irene:perez:ASIR:1:7
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>david:gomez:SMR:1:6
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>sara:ruiz:DAW:2:8
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>pablo:navarro:ASIR:2:3
+</code></pre></div>
+<h2 id="ver-ficheros">Ver ficheros<a class="headerlink" href="#ver-ficheros" title="Permanent link">&para;</a></h2>
+<h3 id="cat-mostrar-y-concatenar"><code>cat</code>: mostrar y concatenar<a class="headerlink" href="#cat-mostrar-y-concatenar" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>cat<span class="w"> </span>alumnos.txt
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$<span class="w"> </span>cat<span class="w"> </span>fichero1<span class="w"> </span>fichero2<span class="w"> </span>&gt;<span class="w"> </span>juntos.txt<span class="w">    </span><span class="c1"># concatena dos ficheros en uno</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$<span class="w"> </span>cat<span class="w"> </span>-n<span class="w"> </span>alumnos.txt<span class="w">                    </span><span class="c1"># numera las líneas</span>
+</code></pre></div>
+<h3 id="less-paginar"><code>less</code>: paginar<a class="headerlink" href="#less-paginar" title="Permanent link">&para;</a></h3>
+<p>Para ficheros largos, <code>less</code> permite moverse con las flechas, <span class="keys"><kbd class="key-space">Space</kbd></span> (página siguiente), <code>/texto</code> (buscar), <span class="keys"><kbd class="key-n">N</kbd></span> (siguiente coincidencia) y <span class="keys"><kbd class="key-q">Q</kbd></span> (salir).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>less<span class="w"> </span>/etc/services
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>less<span class="w"> </span>/var/log/syslog
+</code></pre></div>
+<h3 id="head-y-tail-principio-y-final"><code>head</code> y <code>tail</code>: principio y final<a class="headerlink" href="#head-y-tail-principio-y-final" title="Permanent link">&para;</a></h3>
+<p>Muestran por defecto las <strong>10 primeras</strong> o <strong>10 últimas</strong> líneas. Con <code>-n</code> elegimos cuántas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>alumnos.txt
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>$<span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>alumnos.txt
+</code></pre></div>
+<p><code>tail -f</code> sigue el fichero en tiempo real, mostrando lo que se va añadiendo. Es imprescindible para ver logs mientras ocurre algo (salimos con <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-c">C</kbd></span>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/syslog
+</code></pre></div>
+<h3 id="nl-numerar-lineas"><code>nl</code>: numerar líneas<a class="headerlink" href="#nl-numerar-lineas" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>nl<span class="w"> </span>alumnos.txt
+</code></pre></div>
+<h3 id="ver-ficheros-comprimidos-zcat-bzcat-xzcat">Ver ficheros comprimidos: <code>zcat</code>, <code>bzcat</code>, <code>xzcat</code><a class="headerlink" href="#ver-ficheros-comprimidos-zcat-bzcat-xzcat" title="Permanent link">&para;</a></h3>
+<p>Permiten leer un fichero comprimido sin descomprimirlo, según el algoritmo con el que se comprimió:</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Formato</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zcat</code></td>
+<td>gzip (<code>.gz</code>)</td>
+</tr>
+<tr>
+<td><code>bzcat</code></td>
+<td>bzip2 (<code>.bz2</code>)</td>
+</tr>
+<tr>
+<td><code>xzcat</code></td>
+<td>xz (<code>.xz</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>gzip<span class="w"> </span>alumnos.txt<span class="w">          </span><span class="c1"># crea alumnos.txt.gz y borra el original</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>$<span class="w"> </span>zcat<span class="w"> </span>alumnos.txt.gz
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span>gunzip<span class="w"> </span>alumnos.txt.gz<span class="w">     </span><span class="c1"># lo devuelve a su estado original</span>
+</code></pre></div>
+<h2 id="buscar-lineas-grep">Buscar líneas: <code>grep</code><a class="headerlink" href="#buscar-lineas-grep" title="Permanent link">&para;</a></h2>
+<p><code>grep</code> muestra las líneas que contienen un patrón:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>grep<span class="w"> </span>ASIR<span class="w"> </span>alumnos.txt
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$<span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>asir<span class="w"> </span>alumnos.txt<span class="w">     </span><span class="c1"># -i ignora mayúsculas/minúsculas</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>$<span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>ASIR<span class="w"> </span>alumnos.txt<span class="w">     </span><span class="c1"># -v muestra las que NO lo contienen</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>$<span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span>ASIR<span class="w"> </span>alumnos.txt<span class="w">     </span><span class="c1"># -c cuenta las coincidencias</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Cuidado con los patrones demasiado cortos</p>
+<p><code>grep 1 alumnos.txt</code> encuentra cualquier línea con un <code>1</code> en cualquier sitio. Afinamos incluyendo el contexto: <code>grep ':1:' alumnos.txt</code> busca el <code>1</code> entre separadores. En el tema de expresiones regulares veremos patrones mucho más potentes.</p>
+</div>
+<h2 id="contar-wc">Contar: <code>wc</code><a class="headerlink" href="#contar-wc" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>wc<span class="w"> </span>alumnos.txt<span class="w">        </span><span class="c1"># líneas, palabras y bytes</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>alumnos.txt<span class="w">     </span><span class="c1"># solo líneas</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>$<span class="w"> </span>grep<span class="w"> </span>ASIR<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div>
+<h2 id="cortar-columnas-cut">Cortar columnas: <code>cut</code><a class="headerlink" href="#cortar-columnas-cut" title="Permanent link">&para;</a></h2>
+<p>Extrae campos de cada línea. Con <code>-d</code> indicamos el <strong>delimitador</strong> y con <code>-f</code> los <strong>campos</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1<span class="w"> </span>alumnos.txt<span class="w">         </span><span class="c1"># solo los nombres</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1,2,5<span class="w"> </span>alumnos.txt<span class="w">     </span><span class="c1"># nombre, apellido y nota</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f2-4<span class="w"> </span>alumnos.txt<span class="w">       </span><span class="c1"># del campo 2 al 4</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>$<span class="w"> </span>cut<span class="w"> </span>-c1-3<span class="w"> </span>alumnos.txt<span class="w">           </span><span class="c1"># los 3 primeros caracteres</span>
+</code></pre></div>
+<h2 id="ordenar-sort">Ordenar: <code>sort</code><a class="headerlink" href="#ordenar-sort" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span>sort<span class="w"> </span>alumnos.txt<span class="w">                  </span><span class="c1"># orden alfabético</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$<span class="w"> </span>sort<span class="w"> </span>-r<span class="w"> </span>alumnos.txt<span class="w">               </span><span class="c1"># orden inverso</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>$<span class="w"> </span>sort<span class="w"> </span>-t:<span class="w"> </span>-k5<span class="w"> </span>-n<span class="w"> </span>alumnos.txt<span class="w">       </span><span class="c1"># por el campo 5 (nota), numéricamente</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>$<span class="w"> </span>sort<span class="w"> </span>-t:<span class="w"> </span>-k5<span class="w"> </span>-nr<span class="w"> </span>alumnos.txt<span class="w">      </span><span class="c1"># de mayor a menor nota</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>$<span class="w"> </span>sort<span class="w"> </span>-R<span class="w"> </span>alumnos.txt<span class="w">               </span><span class="c1"># orden aleatorio</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f3<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="c1"># ciclos sin repetir</span>
+</code></pre></div>
+<h2 id="lineas-repetidas-uniq">Líneas repetidas: <code>uniq</code><a class="headerlink" href="#lineas-repetidas-uniq" title="Permanent link">&para;</a></h2>
+<p><code>uniq</code> elimina (o cuenta) líneas repetidas <strong>consecutivas</strong>. Por eso casi siempre va detrás de <code>sort</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f3<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ASIR
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>DAW
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>SMR
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f3<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">      </span><span class="m">4</span><span class="w"> </span>ASIR
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span>DAW
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">      </span><span class="m">2</span><span class="w"> </span>SMR
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>uniq</code> sin <code>sort</code></p>
+<p>Si las líneas iguales no están juntas, <code>uniq</code> no las detecta como repetidas.</p>
+</div>
+<h2 id="traducir-caracteres-tr">Traducir caracteres: <code>tr</code><a class="headerlink" href="#traducir-caracteres-tr" title="Permanent link">&para;</a></h2>
+<p><code>tr</code> sustituye o elimina caracteres. Solo lee de la entrada estándar, así que siempre lo usamos con tubería o <code>&lt;</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>tr<span class="w"> </span><span class="s1">':'</span><span class="w"> </span><span class="s1">','</span><span class="w"> </span>&lt;<span class="w"> </span>alumnos.txt<span class="w">          </span><span class="c1"># cambia : por ,  (crea un CSV)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>$<span class="w"> </span>tr<span class="w"> </span><span class="s1">'a-z'</span><span class="w"> </span><span class="s1">'A-Z'</span><span class="w"> </span>&lt;<span class="w"> </span>alumnos.txt<span class="w">      </span><span class="c1"># a mayúsculas</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"hola    mundo"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">' '</span><span class="w">  </span><span class="c1"># -s comprime espacios repetidos</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"a1b2c3"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'0-9'</span><span class="w">       </span><span class="c1"># -d elimina caracteres</span>
+</code></pre></div>
+<p>Un truco muy útil: la salida de <code>ls -l</code> tiene columnas separadas por varios espacios, lo que impide usar <code>cut</code> directamente. Con <code>tr -s</code> lo arreglamos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/etc<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">' '</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f3,9<span class="w">    </span><span class="c1"># propietario y nombre</span>
+</code></pre></div>
+<h2 id="unir-y-dividir-ficheros-paste-y-split">Unir y dividir ficheros: <code>paste</code> y <code>split</code><a class="headerlink" href="#unir-y-dividir-ficheros-paste-y-split" title="Permanent link">&para;</a></h2>
+<p><code>paste</code> junta ficheros <strong>línea a línea</strong>, en columnas (por defecto separadas por tabulador):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1<span class="w"> </span>alumnos.txt<span class="w"> </span>&gt;<span class="w"> </span>nombres.txt
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f5<span class="w"> </span>alumnos.txt<span class="w"> </span>&gt;<span class="w"> </span>notas.txt
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>$<span class="w"> </span>paste<span class="w"> </span>nombres.txt<span class="w"> </span>notas.txt
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>$<span class="w"> </span>paste<span class="w"> </span>-d,<span class="w"> </span>nombres.txt<span class="w"> </span>notas.txt<span class="w">      </span><span class="c1"># separadas por comas</span>
+</code></pre></div>
+<p><code>split</code> divide un fichero grande en trozos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$<span class="w"> </span>split<span class="w"> </span>-l<span class="w"> </span><span class="m">3</span><span class="w"> </span>alumnos.txt<span class="w"> </span>parte_<span class="w">       </span><span class="c1"># trozos de 3 líneas: parte_aa, parte_ab...</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>$<span class="w"> </span>split<span class="w"> </span>-l<span class="w"> </span><span class="m">3</span><span class="w"> </span>-d<span class="w"> </span>alumnos.txt<span class="w"> </span>parte_<span class="w">    </span><span class="c1"># con sufijos numéricos: parte_00, parte_01...</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>$<span class="w"> </span>split<span class="w"> </span>-b<span class="w"> </span>10M<span class="w"> </span>imagen.iso<span class="w"> </span>trozo_<span class="w">      </span><span class="c1"># trozos de 10 MB</span>
+</code></pre></div>
+<h2 id="editar-texto-en-flujo-sed">Editar texto en flujo: <code>sed</code><a class="headerlink" href="#editar-texto-en-flujo-sed" title="Permanent link">&para;</a></h2>
+<p><code>sed</code> (<em>stream editor</em>) transforma el texto línea a línea. Sus usos básicos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'/ASIR/p'</span><span class="w"> </span>alumnos.txt<span class="w">       </span><span class="c1"># muestra solo las líneas con ASIR (como grep)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>$<span class="w"> </span>sed<span class="w"> </span><span class="s1">'/ASIR/d'</span><span class="w"> </span>alumnos.txt<span class="w">          </span><span class="c1"># elimina de la salida las líneas con ASIR</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'3p'</span><span class="w"> </span>alumnos.txt<span class="w">            </span><span class="c1"># muestra la línea 3</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'2,4p'</span><span class="w"> </span>alumnos.txt<span class="w">          </span><span class="c1"># de la 2 a la 4</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'$p'</span><span class="w"> </span>alumnos.txt<span class="w">            </span><span class="c1"># la última línea</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>$<span class="w"> </span>sed<span class="w"> </span><span class="s1">'s/ASIR/Administración/'</span><span class="w"> </span>alumnos.txt<span class="w">     </span><span class="c1"># sustituye la 1.ª aparición de cada línea</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>$<span class="w"> </span>sed<span class="w"> </span><span class="s1">'s/a/A/g'</span><span class="w"> </span>alumnos.txt<span class="w">          </span><span class="c1"># g: sustituye todas las apariciones</span>
+</code></pre></div>
+<ul>
+<li><code>-n</code> hace que <code>sed</code> no muestre nada salvo lo que indiquemos con <code>p</code>.</li>
+<li>Sin <code>-n</code>, <code>sed</code> muestra todo el texto (ya modificado).</li>
+</ul>
+<p>Por defecto <code>sed</code> <strong>no modifica el fichero</strong>: solo muestra el resultado. Para cambiarlo de verdad usamos <code>-i</code>; si añadimos una extensión, guarda antes una copia de seguridad:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$<span class="w"> </span>sed<span class="w"> </span>-i.bak<span class="w"> </span><span class="s1">'s/SMR/Sistemas/'</span><span class="w"> </span>alumnos.txt
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>$<span class="w"> </span>ls<span class="w"> </span>alumnos*
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>alumnos.txt<span class="w">  </span>alumnos.txt.bak
+</code></pre></div>
+<h2 id="integridad-de-ficheros-sumas-de-comprobacion">Integridad de ficheros: sumas de comprobación<a class="headerlink" href="#integridad-de-ficheros-sumas-de-comprobacion" title="Permanent link">&para;</a></h2>
+<p>Una <strong>suma de comprobación</strong> (<em>hash</em>) es un valor calculado a partir del contenido de un fichero. Si cambia un solo bit del fichero, el hash cambia por completo. Se usa para comprobar que un fichero descargado o enviado <strong>no se ha corrompido ni manipulado</strong>. Por eso las distribuciones publican junto a sus ISO ficheros como <code>SHA256SUMS</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Algoritmo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>md5sum</code></td>
+<td>MD5 (antiguo, ya no se considera seguro)</td>
+</tr>
+<tr>
+<td><code>sha256sum</code></td>
+<td>SHA-256</td>
+</tr>
+<tr>
+<td><code>sha512sum</code></td>
+<td>SHA-512</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>alumnos.txt
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>3b1f...e9a2<span class="w">  </span>alumnos.txt
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>alumnos.txt<span class="w"> </span>&gt;<span class="w"> </span>alumnos.sha256<span class="w">     </span><span class="c1"># guardamos el hash</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>-c<span class="w"> </span>alumnos.sha256<span class="w">                </span><span class="c1"># verificamos</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>alumnos.txt:<span class="w"> </span>OK
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"nueva:linea:ASIR:1:5"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>alumnos.txt
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>-c<span class="w"> </span>alumnos.sha256
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>alumnos.txt:<span class="w"> </span>FAILED
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>sha256sum:<span class="w"> </span>WARNING:<span class="w"> </span><span class="m">1</span><span class="w"> </span>computed<span class="w"> </span>checksum<span class="w"> </span>did<span class="w"> </span>NOT<span class="w"> </span>match
+</code></pre></div>
+<h2 id="ver-el-contenido-en-bruto-od">Ver el contenido "en bruto": <code>od</code><a class="headerlink" href="#ver-el-contenido-en-bruto-od" title="Permanent link">&para;</a></h2>
+<p><code>od</code> (<em>octal dump</em>) muestra los bytes de un fichero. Es útil para descubrir caracteres invisibles (saltos de línea, tabuladores, retornos de carro de ficheros creados en Windows...):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$<span class="w"> </span>od<span class="w"> </span>-c<span class="w"> </span>notas.txt<span class="w">         </span><span class="c1"># como caracteres; \n es salto de línea, \t tabulador</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>$<span class="w"> </span>od<span class="w"> </span>-x<span class="w"> </span>notas.txt<span class="w">         </span><span class="c1"># en hexadecimal</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>$<span class="w"> </span>od<span class="w"> </span>-An<span class="w"> </span>-c<span class="w"> </span>notas.txt<span class="w">     </span><span class="c1"># sin la columna de desplazamiento</span>
+</code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Ficheros de Windows</p>
+<p>Un fichero de texto creado en Windows termina cada línea con <code>\r\n</code>. Con <code>od -c</code> verás los <code>\r</code>, que a veces hacen fallar los scripts en Linux. Se pueden quitar con <code>tr -d '\r' &lt; origen &gt; destino</code>.</p>
+</div>
+<h2 id="resumen-de-comandos">Resumen de comandos<a class="headerlink" href="#resumen-de-comandos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat</code></td>
+<td>Mostrar y concatenar ficheros</td>
+</tr>
+<tr>
+<td><code>zcat</code>, <code>bzcat</code>, <code>xzcat</code></td>
+<td>Mostrar ficheros comprimidos con gzip, bzip2 y xz</td>
+</tr>
+<tr>
+<td><code>less</code></td>
+<td>Paginar un fichero, con búsqueda</td>
+</tr>
+<tr>
+<td><code>head</code> / <code>tail</code></td>
+<td>Primeras / últimas líneas (<code>tail -f</code> para seguir un fichero)</td>
+</tr>
+<tr>
+<td><code>nl</code></td>
+<td>Numerar líneas</td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>Buscar líneas que contienen un patrón</td>
+</tr>
+<tr>
+<td><code>wc</code></td>
+<td>Contar líneas, palabras y bytes</td>
+</tr>
+<tr>
+<td><code>cut</code></td>
+<td>Extraer campos o caracteres</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>Ordenar</td>
+</tr>
+<tr>
+<td><code>uniq</code></td>
+<td>Eliminar o contar líneas repetidas consecutivas</td>
+</tr>
+<tr>
+<td><code>tr</code></td>
+<td>Sustituir, eliminar o comprimir caracteres</td>
+</tr>
+<tr>
+<td><code>paste</code></td>
+<td>Unir ficheros en columnas</td>
+</tr>
+<tr>
+<td><code>split</code></td>
+<td>Dividir un fichero en trozos</td>
+</tr>
+<tr>
+<td><code>sed</code></td>
+<td>Filtrar y transformar texto</td>
+</tr>
+<tr>
+<td><code>md5sum</code>, <code>sha256sum</code>, <code>sha512sum</code></td>
+<td>Calcular y verificar sumas de comprobación</td>
+</tr>
+<tr>
+<td><code>od</code></td>
+<td>Volcar el contenido en octal, hexadecimal o caracteres</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ejercicios">Ejercicios<a class="headerlink" href="#ejercicios" title="Permanent link">&para;</a></h2>
+<p>Usa el fichero <code>alumnos.txt</code> original (si lo modificaste, vuelve a crearlo).</p>
+<p><strong>1.</strong> ¿Cuántos alumnos hay en total? ¿Y cuántos de ASIR?</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>alumnos.txt
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>$<span class="w"> </span>grep<span class="w"> </span>ASIR<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">      </span><span class="c1"># o: grep -c ASIR alumnos.txt</span>
+</code></pre></div>
+</details>
+<p><strong>2.</strong> Muestra solo el nombre y el apellido de los alumnos de DAW.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$<span class="w"> </span>grep<span class="w"> </span>DAW<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1,2
+</code></pre></div>
+</details>
+<p><strong>3.</strong> Muestra los alumnos ordenados de mayor a menor nota y quédate con los tres primeros.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$<span class="w"> </span>sort<span class="w"> </span>-t:<span class="w"> </span>-k5<span class="w"> </span>-nr<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span>
+</code></pre></div>
+</details>
+<p><strong>4.</strong> ¿Cuántos alumnos hay en cada ciclo?</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f3<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+</code></pre></div>
+</details>
+<p><strong>5.</strong> ¿Qué nombres de pila se repiten?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$<span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>pablo
+</code></pre></div>
+<code>uniq -d</code> muestra solo las líneas que aparecen repetidas.</p>
+</details>
+<p><strong>6.</strong> Elige al azar un alumno de ASIR para salir a la pizarra (muestra solo su nombre).</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>$<span class="w"> </span>grep<span class="w"> </span>ASIR<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-R<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+</details>
+<p><strong>7.</strong> Genera un fichero <code>alumnos.csv</code> con el mismo contenido pero separado por comas y con los nombres en mayúsculas.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>$<span class="w"> </span>tr<span class="w"> </span><span class="s1">':'</span><span class="w"> </span><span class="s1">','</span><span class="w"> </span>&lt;<span class="w"> </span>alumnos.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'a-z'</span><span class="w"> </span><span class="s1">'A-Z'</span><span class="w"> </span>&gt;<span class="w"> </span>alumnos.csv
+</code></pre></div>
+Fíjate en que así también se pasan a mayúsculas los apellidos. Para cambiar solo el primer campo haría falta algo más potente (<code>sed</code> con expresiones regulares o <code>awk</code>).</p>
+</details>
+<p><strong>8.</strong> Muestra la primera, la cuarta y la última línea del fichero usando <strong>un solo</strong> <code>sed</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span>-e<span class="w"> </span><span class="s1">'1p'</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">'4p'</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">'$p'</span><span class="w"> </span>alumnos.txt
+</code></pre></div>
+</details>
+<p><strong>9.</strong> Usando <code>/etc/passwd</code>: ¿qué usuarios tienen como shell <code>/bin/bash</code>? Muestra solo sus nombres. ¿Cuántos usuarios <strong>no</strong> lo tienen?</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>$<span class="w"> </span>grep<span class="w"> </span><span class="s1">':/bin/bash$'</span><span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f1
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>$<span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">':/bin/bash$'</span><span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div>
+El <code>$</code> final indica "al final de la línea" (lo veremos en expresiones regulares).</p>
+</details>
+<p><strong>10.</strong> ¿Cuántos procesadores (núcleos lógicos) tiene tu máquina? Cada uno aparece en <code>/proc/cpuinfo</code> en una línea que empieza por <code>processor</code>. Resuélvelo con <code>grep</code> y luego con <code>sed</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>$<span class="w"> </span>grep<span class="w"> </span>processor<span class="w"> </span>/proc/cpuinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'/processor/p'</span><span class="w"> </span>/proc/cpuinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div>
+El comando <code>nproc</code> da directamente el mismo dato.</p>
+</details>
+<p><strong>11.</strong> Calcula la suma SHA-256 de <code>alumnos.csv</code> y guárdala en un fichero. Cambia una nota con <code>sed -i</code> y comprueba que la verificación falla.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>alumnos.csv<span class="w"> </span>&gt;<span class="w"> </span>alumnos.csv.sha256
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>-c<span class="w"> </span>alumnos.csv.sha256<span class="w">        </span><span class="c1"># OK</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>$<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/,4$/,5/'</span><span class="w"> </span>alumnos.csv
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>-c<span class="w"> </span>alumnos.csv.sha256<span class="w">        </span><span class="c1"># FAILED</span>
+</code></pre></div>
+</details>
+<p><strong>12.</strong> Lista el contenido de <code>/etc</code> con <code>ls -l</code> y muestra solo el propietario y el nombre de los <strong>directorios</strong>.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/etc<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^d'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">' '</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f3,9
+</code></pre></div>
+Las líneas de directorios empiezan por <code>d</code>; <code>^d</code> significa "empieza por d".</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../103-1-variables/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 3.1 Variables y caracteres especiales">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                3.1 Variables y caracteres especiales
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../103-3-archivos/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: 3.3 Gestión básica de archivos">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                3.3 Gestión básica de archivos
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.footer", "navigation.top", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
