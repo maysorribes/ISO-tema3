@@ -1,0 +1,7 @@
+# Sitio generado por MkDocs (se publica con mkdocs gh-deploy, no se sube)
+site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

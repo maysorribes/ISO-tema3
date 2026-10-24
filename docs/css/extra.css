@@ -1,0 +1,13 @@
+.md-typeset p,
+.md-typeset li {
+  text-align: justify;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.md-typeset table:not([class]) th:empty {
+  display: none;
+}

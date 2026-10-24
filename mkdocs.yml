@@ -1,0 +1,99 @@
+site_name: "ISO · Tema 3 · Configuración básica de Linux"
+site_description: Apuntes del Tema 3 de Implantación de Sistemas Operativos
+docs_dir: docs
+
+theme:
+  name: material
+  language: es
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.footer
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Modo oscuro
+    - scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.fancylists
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra_css:
+  - css/extra.css
+
+nav:
+  - Inicio: index.md
+  - Parte 1 · Línea de comandos:
+      - 3.1 Variables y caracteres especiales: 103-1-variables.md
+      - 3.2 Filtros de texto: 103-2-filtros.md
+      - 3.3 Gestión básica de archivos: 103-3-archivos.md
+      - 3.4 Búsqueda, archivado y copia: 103-3-find-tar.md
+      - 3.5 Redirecciones: 103-4-redirecciones.md
+      - 3.6 Tuberías, tee y xargs: 103-4-tuberias.md
+      - 3.7 Procesos: 103-5-procesos.md
+      - 3.8 Prioridad de procesos: 103-6-prioridades.md
+      - 3.9 Expresiones regulares: 103-7-regex.md
+      - 3.10 grep y sed: 103-7-grep-sed.md
+  - Parte 2 · Usuarios y sistema de archivos:
+      - 3.11 Gestión de usuarios y grupos: 107-1-usuarios.md
+      - 3.12 Ficheros de cuentas: 107-1-ficheros-cuentas.md
+      - 3.13 Permisos y propietarios: 104-5-permisos.md
+      - 3.14 Permisos especiales: 104-5-permisos-especiales.md
+      - 3.15 Enlaces duros y simbólicos: 104-6-enlaces.md
+      - 3.16 Jerarquía de directorios: 104-7-fhs.md
+  # PRÁCTICAS: para mostrar una práctica, quita el # de su línea aquí
+  # y borra sus dos líneas del bloque exclude_docs del final.
+  # La línea "- Prácticas:" y la de "practicas/index.md" se descomentan
+  # con la primera práctica que muestres.
+  - Prácticas:
+      - practicas/index.md
+      - "Práctica 1 · Archivos y directorios": practicas/p1-archivos.md
+  #     - "Práctica 2 · Comodines, redirecciones y find": practicas/p2-comodines.md
+  #     - "Práctica 3 · Procesos y prioridades": practicas/p3-procesos.md
+  #     - "Práctica 4 · Filtros y expresiones regulares": practicas/p4-filtros.md
+  #     - "Práctica 5 · Usuarios y grupos": practicas/p5-usuarios.md
+  #     - "Práctica 6 · Permisos": practicas/p6-permisos.md
+  #     - "Práctica 7 · Enlaces y FHS": practicas/p7-enlaces-fhs.md
+  #     - "Práctica 8 · Gestión de paquetes": practicas/p8-paquetes.md
+
+# Prácticas ocultas: no se publican ni aparecen en el buscador.
+exclude_docs: |
+  practicas/p2-comodines.md
+  practicas/pdf/UT3_P2_Comodines.pdf
+  practicas/p3-procesos.md
+  practicas/pdf/UT3_P3_Procesos.pdf
+  practicas/p4-filtros.md
+  practicas/pdf/UT3_P4_Filtros.pdf
+  practicas/p5-usuarios.md
+  practicas/pdf/UT3_P5_Usuarios.pdf
+  practicas/p6-permisos.md
+  practicas/pdf/UT3_P6_Permisos.pdf
+  practicas/p7-enlaces-fhs.md
+  practicas/pdf/UT3_P7_Enlaces_FHS.pdf
+  practicas/p8-paquetes.md
+  practicas/pdf/UT3_P8_Paquetes.pdf
