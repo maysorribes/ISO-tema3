@@ -76,7 +76,7 @@ nav:
   #     - "Práctica 2 · Comodines, redirecciones y find": practicas/p2-comodines.md
   #     - "Práctica 3 · Procesos y prioridades": practicas/p3-procesos.md
   #     - "Práctica 4 · Filtros y expresiones regulares": practicas/p4-filtros.md
-  #     - "Práctica 5 · Usuarios y grupos": practicas/p5-usuarios.md
+      - "Práctica 5 · Usuarios y grupos": practicas/p5-usuarios.md
   #     - "Práctica 6 · Permisos": practicas/p6-permisos.md
   #     - "Práctica 7 · Enlaces y FHS": practicas/p7-enlaces-fhs.md
   #     - "Práctica 8 · Gestión de paquetes": practicas/p8-paquetes.md
@@ -89,8 +89,6 @@ exclude_docs: |
   practicas/pdf/UT3_P3_Procesos.pdf
   practicas/p4-filtros.md
   practicas/pdf/UT3_P4_Filtros.pdf
-  practicas/p5-usuarios.md
-  practicas/pdf/UT3_P5_Usuarios.pdf
   practicas/p6-permisos.md
   practicas/pdf/UT3_P6_Permisos.pdf
   practicas/p7-enlaces-fhs.md
