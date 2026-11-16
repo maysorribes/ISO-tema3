@@ -74,7 +74,7 @@ nav:
       - practicas/index.md
       - "Práctica 1 · Archivos y directorios": practicas/p1-archivos.md
   #     - "Práctica 2 · Comodines, redirecciones y find": practicas/p2-comodines.md
-  #     - "Práctica 3 · Procesos y prioridades": practicas/p3-procesos.md
+      - "Práctica 3 · Procesos y prioridades": practicas/p3-procesos.md
   #     - "Práctica 4 · Filtros y expresiones regulares": practicas/p4-filtros.md
       - "Práctica 5 · Usuarios y grupos": practicas/p5-usuarios.md
   #     - "Práctica 6 · Permisos": practicas/p6-permisos.md
@@ -85,8 +85,6 @@ nav:
 exclude_docs: |
   practicas/p2-comodines.md
   practicas/pdf/UT3_P2_Comodines.pdf
-  practicas/p3-procesos.md
-  practicas/pdf/UT3_P3_Procesos.pdf
   practicas/p4-filtros.md
   practicas/pdf/UT3_P4_Filtros.pdf
   practicas/p6-permisos.md
