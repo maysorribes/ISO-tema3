@@ -73,23 +73,11 @@ nav:
   - Prácticas:
       - practicas/index.md
       - "Práctica 1 · Archivos y directorios": practicas/p1-archivos.md
-  #     - "Práctica 2 · Comodines, redirecciones y find": practicas/p2-comodines.md
+      - "Práctica 2 · Comodines, redirecciones y find": practicas/p2-comodines.md
       - "Práctica 3 · Procesos y prioridades": practicas/p3-procesos.md
-  #     - "Práctica 4 · Filtros y expresiones regulares": practicas/p4-filtros.md
+      - "Práctica 4 · Filtros y expresiones regulares": practicas/p4-filtros.md
       - "Práctica 5 · Usuarios y grupos": practicas/p5-usuarios.md
-  #     - "Práctica 6 · Permisos": practicas/p6-permisos.md
-  #     - "Práctica 7 · Enlaces y FHS": practicas/p7-enlaces-fhs.md
-  #     - "Práctica 8 · Gestión de paquetes": practicas/p8-paquetes.md
+      - "Práctica 6 · Permisos": practicas/p6-permisos.md
+      - "Práctica 7 · Enlaces y FHS": practicas/p7-enlaces-fhs.md
+      - "Práctica 8 · Gestión de paquetes": practicas/p8-paquetes.md
 
-# Prácticas ocultas: no se publican ni aparecen en el buscador.
-exclude_docs: |
-  practicas/p2-comodines.md
-  practicas/pdf/UT3_P2_Comodines.pdf
-  practicas/p4-filtros.md
-  practicas/pdf/UT3_P4_Filtros.pdf
-  practicas/p6-permisos.md
-  practicas/pdf/UT3_P6_Permisos.pdf
-  practicas/p7-enlaces-fhs.md
-  practicas/pdf/UT3_P7_Enlaces_FHS.pdf
-  practicas/p8-paquetes.md
-  practicas/pdf/UT3_P8_Paquetes.pdf
